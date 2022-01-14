@@ -10,3 +10,5 @@ engine = _sql_async.create_async_engine(connect_str, echo=True)
 Base = _orm_sync.declarative_base()
 # session async
 Session = _sql_async.AsyncSession(engine, expire_on_commit=False)
+
+
