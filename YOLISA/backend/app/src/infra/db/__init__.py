@@ -1,1 +1,1 @@
-from .config import engine, Base, Session
+from .config_db import Base, engine, database
