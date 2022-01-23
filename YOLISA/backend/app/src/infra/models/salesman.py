@@ -12,6 +12,8 @@ class Salesman(Base):
     password_hash = sa.Column(sa.String(120), nullable=False)
     status = sa.Column(sa.Boolean, default=False, nullable=True)
     nif = sa.Column(sa.String(20), nullable=False)
+    doc_name=sa.Column(sa.Text,nullable=False)
+    doc_type=sa.Column(sa.String(60),nullable=False)
     doc_identification = sa.Column(sa.LargeBinary, nullable=True)
     desc_business = sa.Column(sa.Text, nullable=True)
     contact = sa.orm.relationship(

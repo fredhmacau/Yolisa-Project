@@ -14,4 +14,4 @@ Base = declarative_base(engine, metadata=metadata_obj)
 
 # created linked database with module databases for transition in db schema
 
-database = Database("mysql+aiomysql://root:12-80-Devtry:2@localhost/yolisa")
+database = Database("mysql://root:12-80-Devtry:2@localhost/yolisa")

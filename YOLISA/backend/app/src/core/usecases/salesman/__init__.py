@@ -1,0 +1,1 @@
+from .registred import registred_salesman
