@@ -1,14 +1,9 @@
-CREATE PROCEDURE `register_salesman`(_username varchar(80),
-								_email varchar(80), 
-								_business_name varchar(80),                   
-								_password_hash varchar(120),
-								_nif varchar(20),
-                                _doc_name Text,
-                                _doc_type Varchar(60),
-								_doc_identification blob,
-								_desc_business text)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_more_contact`(_phone_number int,
+									 _province_focus VARCHAR(80),
+                                     _city_focus VARCHAR(80),
+                                     _desc_localization text,
+                                     _salesman_id int)
 BEGIN
-INSERT INTO salesman(username,email,business_name,password_hash,nif,
-doc_name,doc_type,doc_identification,desc_business) values (_username,_email,_business_name,
-_password_hash,_nif,_doc_name,_doc_type,_doc_identification,_desc_business);
+INSERT INTO contact_salesman(phone_number,province_focus,city_focus,desc_localization,
+salesman_id) VALUES (_phone_number,_province_focus,_city_focus,_desc_localization,_salesman_id);
 END

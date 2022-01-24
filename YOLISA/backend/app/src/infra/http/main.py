@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.infra.http.routes import salesman
+#from fastapi import status
+
+
 
 #api yolisa
 api=FastAPI(title="YOLISA Backend",

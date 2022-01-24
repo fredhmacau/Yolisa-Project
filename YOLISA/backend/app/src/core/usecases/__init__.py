@@ -1,1 +1,1 @@
-from .salesman import registred_salesman
+from .salesman import *
