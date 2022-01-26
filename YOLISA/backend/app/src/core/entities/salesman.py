@@ -1,5 +1,6 @@
 #entity salesman 
 import asyncio
+from unittest import result
 from src.core.usecases import *
 from bcrypt import hashpw,gensalt
 from src.infra.helpers import response,exception,response_files
@@ -15,6 +16,7 @@ class EntitySalesman:
         password_hash=hashpw(password.encode('utf-8'),gensalt())
         return password_hash
     
+    #-------------------------------------------------------------------------
     #register salesman
     async def register(self,**data):
         #call __password_hash
@@ -35,7 +37,8 @@ class EntitySalesman:
                                 status=201)
         except Exception as exc:
             raise exception(detail=f"error:{exc}",status=406)
-        
+    
+    #-------------------------------------------------------------------------    
     #select salesman
     async def get(self,id:int):
         try:
@@ -48,6 +51,7 @@ class EntitySalesman:
         except Exception as exc:
             raise exception(detail=f"error:{exc}",status=404)
     
+    #-------------------------------------------------------------------------
     #update salesman
     async def update(self,id:int,**data):
         try:
@@ -58,7 +62,7 @@ class EntitySalesman:
         except Exception as exc:
             raise exception(detail=f"error:{exc}",status=406)
         
-    
+    #-------------------------------------------------------------------------
     #delete salesman
     async def delete(self,id:int):
         try:
@@ -68,7 +72,8 @@ class EntitySalesman:
                                 status=200)
         except Exception as exc:
             raise exception(detail=f"error:{exc}",status=404)
-            
+    
+    #-------------------------------------------------------------------------        
     #add img
     async def add_img(self,id_salesman:int,img):
         try:
@@ -79,6 +84,7 @@ class EntitySalesman:
         except Exception as exc:
             raise exception(detail=f"error:{exc}",status=404)
     
+    #-------------------------------------------------------------------------
     #get img salesman
     async def get_img(self,id_salesman:int):
         try:
@@ -86,9 +92,12 @@ class EntitySalesman:
             if img:
                 img_byte=io.BytesIO(img['img'])
                 return response_files(img_byte.read(),img['type_image'])
+            else:
+                return response(msg={"msg":"img not found"},status=404)
         except Exception as exc:
             raise exception(detail=f"error:{exc}",status=404)
-        
+    
+    #-------------------------------------------------------------------------    
     #update img
     async def update_img(self,id_salesman:int,img):
         try:
@@ -99,6 +108,7 @@ class EntitySalesman:
         except Exception as exc:
             raise exception(detail=f"error:{exc}",status=404)
 
+    #-------------------------------------------------------------------------
     #delete img from salesman
     async def delele_img(self,id_salesman:int):
         try:
@@ -109,6 +119,7 @@ class EntitySalesman:
         except Exception as exc:
             raise exception(detail=f"error:{exc}",status=404)
     
+    #-------------------------------------------------------------------------
     #add contact from salesman
     async def add_contact(self,id_salesman:int,**data):
         try:
@@ -118,4 +129,53 @@ class EntitySalesman:
                                 status=201)
         except Exception as exc:
             raise exception(detail=f"error:{exc}",status=406)
+        
+    #-------------------------------------------------------------------------
+    #get contact from salesman
+    async def get_contact(self,id_salesman:int):
+        try:
+            result=await get_contact_from_salesman(id_salesman)
+            if result:
+                return result
+            else:
+                return response(msg={'msg':"salesman or contact not found"},status=404)
+        except Exception as exc:
+            raise exception(detail=f"error:{exc}",status=404)
+    
+    
+     #-------------------------------------------------------------------------
+    #update contact from salesman
+    async def update_contact(self,id_salesman:int,**data):
+        try:
+            result=await update_contact_from_salesman(id_salesman,**data)
+            if result:
+                return response(msg={"msg":"salesman contact update with success"},
+                                status=200)
+        except Exception as exc:
+            raise exception(detail=f"error:{exc}",status=406)
+        
+    #-------------------------------------------------------------------------
+    #add post from salesman
+    async def add_post(self,id_salesman:int,**data):
+        try:
+            result=await post_product_from_salesman(id_salesman,**data)
+            if result:
+                return response(msg={"msg":"product posted with success"},
+                                status=201)
+        except Exception as exc:
+            raise exception(detail=f"error:{exc}",status=406)
+    
+    #-------------------------------------------------------------------------
+    #view img the post from salesman
+    async def view_img(self,id_img:int):
+        try:
+            result=await get_img_in_post_salesman(id_img)
+            if result:
+                img_byte=io.BytesIO(result['img'])
+                return response_files(img_byte.read(),result['type_img'])
+            else:
+                return response(msg={"msg":"img not found"},status=404)
+        except Exception as exc:
+            raise exception(detail=f"error:{exc}",status=404)
+    
     

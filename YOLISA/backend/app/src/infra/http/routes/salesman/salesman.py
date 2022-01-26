@@ -39,3 +39,4 @@ async def delete_salesman(id:int):
 #add more routes for salesman
 from .salesman_img import *
 from .salesman_contact import *
+from .salesman_posts import *

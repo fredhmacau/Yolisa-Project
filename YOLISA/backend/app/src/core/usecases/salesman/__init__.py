@@ -7,3 +7,7 @@ from .get_img import get_img_from_salesman
 from .update_img import update_img_salesman
 from .delete_img import delete_img_salesman
 from .add_contact import add_contact_from_salesman
+from .get_contact import get_contact_from_salesman
+from .update_contact import update_contact_from_salesman
+from .add_post import post_product_from_salesman
+from .get_img_post import get_img_in_post_salesman

@@ -44,3 +44,19 @@ class FasAPIAdapter:
     # route http://127.0.0.1:8000/api/v1/salesman/{id_salesman}/add_contact
     async def add_contact_salesman(self,id_salesman:int,**data):
         return await salesman.add_contact(id_salesman,**data)
+    
+    #route http://127.0.0.1:8000/api/v1/salesman/25/get_contact
+    async def get_contact_salesman(self,id_salesman:int):
+        return await salesman.get_contact(id_salesman)
+    
+    #route http://127.0.0.1:8000/api/v1/salesman/25/update_contact
+    async def update_contact_salesman(self,id_salesman:int,**data):
+        return await salesman.update_contact(id_salesman,**data)
+    
+    # route http://127.0.0.1:8000/api/v1/salesman/{id_salesman}/post/add
+    async def add_post_salesman(self,id_salesman:int,**data):
+        return await salesman.add_post(id_salesman,**data)
+    
+    # route http://127.0.0.1:8000/api/v1/salesman/{id_img}/post/view_img
+    async def view_img_post__salesman(self,id_img:int):
+        return await salesman.view_img(id_img)
