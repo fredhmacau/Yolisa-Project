@@ -57,6 +57,19 @@ class FasAPIAdapter:
     async def add_post_salesman(self,id_salesman:int,**data):
         return await salesman.add_post(id_salesman,**data)
     
-    # route http://127.0.0.1:8000/api/v1/salesman/{id_img}/post/view_img
-    async def view_img_post__salesman(self,id_img:int):
-        return await salesman.view_img(id_img)
+    # route http://127.0.0.1:8000/api/v1/salesman/{id_post}/post/view_img
+    async def view_img_post_salesman(self,id_post:int):
+        return await salesman.view_img_post(id_post)
+    
+    # route http://127.0.0.1:8000/api/v1/salesman/{id_salesman}/post/view_posts
+    async def view_posts_salesman(self,id_salesman:int):
+        return await salesman.view_posts(id_salesman)
+    
+    
+    # route # route http://127.0.0.1:8000/api/v1/salesman/post/{id_post}/update
+    async def update_post_salesman(self,id_post:int,**data):
+        return await salesman.update_post(id_post,**data)
+    
+    # route http://127.0.0.1:8000/api/v1/salesman/post/3/delete
+    async def delete_post_salesman(self,id_post:int):
+        return await salesman.delete_post(id_post)

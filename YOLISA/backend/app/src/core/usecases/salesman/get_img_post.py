@@ -2,14 +2,14 @@ from src.infra.db import database
 import asyncio
 
 #view img the post 
-async def get_img_in_post_salesman(id_img:int):
+async def get_img_in_post_salesman(id_post:int):
     #query
     query="""SELECT id,img_name,type_img,img FROM publish_product
-             WHERE id=:id_img;
+             WHERE id=:id_post;
           """
     #conn db
     async with database as conn:
-        return await conn.fetch_one(query=query,values={"id_img":id_img})
+        return await conn.fetch_one(query=query,values={"id_post":id_post})
     
 
 #function main

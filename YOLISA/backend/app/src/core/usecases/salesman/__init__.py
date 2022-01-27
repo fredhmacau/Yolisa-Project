@@ -11,3 +11,6 @@ from .get_contact import get_contact_from_salesman
 from .update_contact import update_contact_from_salesman
 from .add_post import post_product_from_salesman
 from .get_img_post import get_img_in_post_salesman
+from .get_posts import get_posts_from_salesman
+from .update_post import update_post_from_salesman
+from .delete_post import delete_post_from_salesman

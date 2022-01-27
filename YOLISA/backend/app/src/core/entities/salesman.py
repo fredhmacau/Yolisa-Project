@@ -167,7 +167,7 @@ class EntitySalesman:
     
     #-------------------------------------------------------------------------
     #view img the post from salesman
-    async def view_img(self,id_img:int):
+    async def view_img_post(self,id_img:int):
         try:
             result=await get_img_in_post_salesman(id_img)
             if result:
@@ -178,4 +178,38 @@ class EntitySalesman:
         except Exception as exc:
             raise exception(detail=f"error:{exc}",status=404)
     
+    #-------------------------------------------------------------------------
+    #view posts the salesman
+    async def view_posts(self,id_salesman:int):
+        try:
+            result=await get_posts_from_salesman(id_salesman)
+            if result:
+                return result
+            else:
+                return response(msg={"msg":"posts not found"},status=404)
+        except Exception as exc:
+            raise exception(detail=f"error:{exc}",status=404)
+        
+    #-------------------------------------------------------------------------
+    #update post the salesman
+    async def update_post(self,id_post:int,**data):
+        try:
+            result=await update_post_from_salesman(id_post,**data)
+            if result:
+                return response(msg={"msg":"update post with success"},status=200)
+            else:
+                return response(msg={"msg":"post not found"},status=404)
+        except Exception as exc:
+            raise exception(detail=f"error:{exc}",status=404)
     
+    #-------------------------------------------------------------------------
+    #delete post from salesman
+    async def delete_post(self,id_post:int):
+        try:
+            result=await delete_post_from_salesman(id_post)
+            if result:
+                return response(msg={"msg":"post delete with success"},status=200)
+            else:
+                return response(msg={"msg":"post not found"},status=404)
+        except Exception as exc:
+            raise exception(detail=f"error:{exc}",status=404)
