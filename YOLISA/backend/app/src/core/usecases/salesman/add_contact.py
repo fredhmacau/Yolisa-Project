@@ -12,7 +12,9 @@ async def add_contact_from_salesman(id:int,**data):
         "desc_localization":data['desc_localization'],
         "salesman_id":id
     } 
-    query="""CALL add_more_contact(:phone_number,:province_focus,:city_focus,
+    query="""INSERT INTO contact_salesman(phone_number,province_focus,
+             city_focus,desc_localization,salesman_id) 
+             VALUES(:phone_number,:province_focus,:city_focus,
             :desc_localization,:salesman_id)"""
     
     #conn db

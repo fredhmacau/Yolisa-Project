@@ -12,7 +12,8 @@ async def salesman_add_img(id:int,img):
         "salesman_id":id
     }
     #query
-    query="CALL add_img_salesman(:image_name,:type_image,:img,:salesman_id)"
+    query="""INSERT INTO image_salesman(image_name,type_image,img,salesman_id)
+             VALUES(:image_name,:type_image,:img,:salesman_id)"""
     #conn database
     async with database as conn:
         return await conn.execute(query=query,values=values)

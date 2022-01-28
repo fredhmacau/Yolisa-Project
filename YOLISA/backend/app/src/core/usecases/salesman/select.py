@@ -4,7 +4,8 @@ from src.infra.db import database
 #select salesman in database data
 async def select_salesman_data(id:int):
     #query
-    query="CALL get_salesman(:id)"
+    query="""SELECT username,email,business_name,status,nif,desc_business 
+             FROM salesman WHERE id =:id"""
     #connect db
     async with database as conn:
         return await conn.fetch_one(query=query,values={"id":id})

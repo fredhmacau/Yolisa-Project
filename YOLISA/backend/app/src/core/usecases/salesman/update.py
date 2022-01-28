@@ -4,7 +4,9 @@ import asyncio
 
 #update salesman
 async def update_salesman(id:int,**data):
-    query="CALL update_salesman(:id,:username,:email,:desc_business)"
+    query="""UPDATE salesman SET username=:username,
+             email=:email,desc_business=:desc_business
+             WHERE id=:id;"""
     values={
         "id":id,
         "username":data['username'],

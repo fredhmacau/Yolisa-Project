@@ -14,3 +14,4 @@ from .get_img_post import get_img_in_post_salesman
 from .get_posts import get_posts_from_salesman
 from .update_post import update_post_from_salesman
 from .delete_post import delete_post_from_salesman
+from .get_total import get_total_of_post

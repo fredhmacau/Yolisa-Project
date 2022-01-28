@@ -1,6 +1,5 @@
 #entity salesman 
 import asyncio
-from unittest import result
 from src.core.usecases import *
 from bcrypt import hashpw,gensalt
 from src.infra.helpers import response,exception,response_files
@@ -45,7 +44,7 @@ class EntitySalesman:
             #store data from salesman
             result=await select_salesman_data(id)
             if result:
-                return result 
+                return response(msg=result,status=200) 
             else:
                 return response(msg={'msg':'salesman not found'},status=404)
         except Exception as exc:
@@ -136,7 +135,7 @@ class EntitySalesman:
         try:
             result=await get_contact_from_salesman(id_salesman)
             if result:
-                return result
+                return response(msg=result,status=200)
             else:
                 return response(msg={'msg':"salesman or contact not found"},status=404)
         except Exception as exc:
@@ -180,16 +179,21 @@ class EntitySalesman:
     
     #-------------------------------------------------------------------------
     #view posts the salesman
+    async def __get_total(self,id_salesman:int):
+        total=await get_total_of_post(id_salesman)
+        return total 
+    
     async def view_posts(self,id_salesman:int):
         try:
             result=await get_posts_from_salesman(id_salesman)
             if result:
-                return result
+                total=await self.__get_total(id_salesman)
+                return response(msg={total.total:result},status=200)
             else:
                 return response(msg={"msg":"posts not found"},status=404)
         except Exception as exc:
             raise exception(detail=f"error:{exc}",status=404)
-        
+
     #-------------------------------------------------------------------------
     #update post the salesman
     async def update_post(self,id_post:int,**data):

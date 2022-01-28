@@ -1,0 +1,3 @@
+from .search_product import search_product_name
+from .search_product_province import search_product_filter_by_province
+from .get_info_of_post import get_info_of_the_post_by_visitant

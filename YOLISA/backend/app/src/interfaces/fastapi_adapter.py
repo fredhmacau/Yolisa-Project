@@ -1,10 +1,15 @@
 # pylint: disable=trailing-whitespace
+from src.core.entities.visitant import EntityVisitant
 from src.core.entities import EntitySalesman
 import asyncio
 
 #Adapter for fastapi framework
 #instance EntitySalesman
 salesman=EntitySalesman()
+
+#instance EntityVisitant
+visitant=EntityVisitant()
+
 #class Adapter
 class FasAPIAdapter:
     def __init__(self):
@@ -14,6 +19,7 @@ class FasAPIAdapter:
         return await salesman.register(**data)
     
     #route http://127.0.0.1:8000/api/v1/salesman/acount/get
+    # route http://127.0.0.1:8000/api/v1/visitant/info/salesman/{id_salesman}
     async def salesman_get(self,id:int):
         return await salesman.get(id)
     
@@ -30,6 +36,7 @@ class FasAPIAdapter:
         return await salesman.add_img(id_salesman,img)
     
     # route http://127.0.0.1:8000/api/v1/salesman/acount/img/get_img
+    # route http://127.0.0.1:8000/api/v1/visitant/info/salesman/{id_salesman}/picture
     async def get_img_salesman(self,id_salesman:int):
         return await salesman.get_img(id_salesman)
     
@@ -46,6 +53,7 @@ class FasAPIAdapter:
         return await salesman.add_contact(id_salesman,**data)
     
     #route http://127.0.0.1:8000/api/v1/salesman/acount/contact/get_contact
+    #route http://127.0.0.1:8000/api/v1/visitant/info/salesman/{id_salesman}/contacts
     async def get_contact_salesman(self,id_salesman:int):
         return await salesman.get_contact(id_salesman)
     
@@ -58,10 +66,12 @@ class FasAPIAdapter:
         return await salesman.add_post(id_salesman,**data)
     
     # route http://127.0.0.1:8000/api/v1/salesman'/acount/post/view_img/{id_post}
+    # route http://127.0.0.1:8000/api/v1/visitant/info/post/{id}/img
     async def view_img_post_salesman(self,id_post:int):
         return await salesman.view_img_post(id_post)
     
     # route http://127.0.0.1:8000/api/v1/salesman'/acount/post/view_posts
+    #route http://127.0.0.1:8000/api/v1/visitant/info/salesman/posts
     async def view_posts_salesman(self,id_salesman:int):
         return await salesman.view_posts(id_salesman)
     
@@ -73,3 +83,15 @@ class FasAPIAdapter:
     # route http://127.0.0.1:8000/api/v1/salesman'/acount/post/delete/{id_post}
     async def delete_post_salesman(self,id_post:int):
         return await salesman.delete_post(id_post)
+    
+    # route http://127.0.0.1:8000/api/v1/visitant/?query={product}
+    async def search_product(self,product_name:str):
+        return await visitant.search_product_by_visitant(product_name)
+    
+    # route http://127.0.0.1:8000/api/v1/visitant/?query={product}&&filter_by_province
+    async def search_product_by_province(self,product_name:str,province_name:str):
+        return await visitant.search_product_with_filter_province(product_name,province_name)
+    
+    # route http://127.0.0.1:8000/api/v1/visitant/info/post/{id}
+    async def  get_info_post(self,id_post:int):
+        return await visitant.get_infomations_of_post(id_post)

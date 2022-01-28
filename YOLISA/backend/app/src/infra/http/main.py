@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.infra.http.routes import salesman
+from src.infra.http.routes import visitant
 #from fastapi import status
 
 
@@ -18,3 +19,4 @@ api.add_middleware(CORSMiddleware,
 
 #add routes
 api.include_router(salesman,prefix="/api/v1")
+api.include_router(visitant,prefix="/api/v1")

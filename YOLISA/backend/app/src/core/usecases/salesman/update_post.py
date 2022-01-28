@@ -11,8 +11,10 @@ async def update_post_from_salesman(id_post:int,**data):
     }
     
     #query
-    query="""CALL update_post_salesman(:product_name,:localization,
-             :desc_product,:post_id)"""
+    query="""UPDATE publish_product SET product_name=:product_name,
+            localization=:localization,desc_product=:desc_product
+            WHERE id=:post_id;"""
+            
     #conn db
     async with database as conn:
         return await conn.execute(query=query,values=values)

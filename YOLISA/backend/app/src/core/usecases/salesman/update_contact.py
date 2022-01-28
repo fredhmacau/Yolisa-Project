@@ -12,8 +12,10 @@ async def update_contact_from_salesman(id_salesman:int,**data):
         "salesman_id":id_salesman
     } 
     #query
-    query="""CALL update_contact_salesman(:phone_number,:province_focus,
-            :city_focus,:desc_localization,:salesman_id)"""
+    query="""UPDATE contact_salesman SET phone_number=:phone_number,
+            province_focus=:province_focus,
+            city_focus=:city_focus,desc_localization=:desc_localization
+            WHERE salesman_id=:salesman_id;"""
     
     #conn db
     async with database as conn:

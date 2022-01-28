@@ -16,7 +16,9 @@ async def post_product_from_salesman(id_salesman:int,**data):
         "salesman_id":id_salesman        
     }
     #query
-    query="""CALL add_post_salesman(:product_name,:price,:tags,:localization,
+    query="""INSERT INTO publish_product(product_name,price,tags,localization,desc_product,
+             img_name,type_img,img,salesman_id)
+             VALUES(:product_name,:price,:tags,:localization,
              :desc_product,:img_name,:type_img,:img,:salesman_id
              )
           """
