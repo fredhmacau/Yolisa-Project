@@ -39,7 +39,7 @@ async def get_salesman(token:str=Depends(oauth2_token)):
 @salesman.put("/acount/update",tags=['salesman'])
 async def update_salesman(form_data:Request,token:str=Depends(oauth2_token)):
         id=await salesman_token.get_current_user(token)
-        #parser data from dorm 
+        #parser data from form 
         data=await form_data.form()
         #render result of update salesman
         return await adapter.salesman_update(id,**data)

@@ -1,0 +1,27 @@
+/* Coolors Exported Palette - https://coolors.co/ffffff-edffab-01baef-0cbaba-380036-26081c-0f060c */
+
+/* CSV */
+ffffff,edffab,01baef,0cbaba,380036,26081c,0f060c
+
+/* With # */
+#ffffff, #edffab, #01baef, #0cbaba, #380036, #26081c, #0f060c
+
+/* Array */
+["ffffff","edffab","01baef","0cbaba","380036","26081c","0f060c"]
+
+/* Object */
+{"White":"ffffff","Key Lime":"edffab","Cyan Process":"01baef","Tiffany Blue":"0cbaba","Russian Violet":"380036","Dark Purple":"26081c","Xiketic":"0f060c"}
+
+/* Extended Array */
+[{"name":"White","hex":"ffffff","rgb":[255,255,255],"cmyk":[0,0,0,0],"hsb":[0,0,100],"hsl":[0,0,100],"lab":[100,0,0]},{"name":"Key Lime","hex":"edffab","rgb":[237,255,171],"cmyk":[7,0,33,0],"hsb":[73,33,100],"hsl":[73,100,84],"lab":[97,-19,38]},{"name":"Cyan Process","hex":"01baef","rgb":[1,186,239],"cmyk":[100,22,0,6],"hsb":[193,100,94],"hsl":[193,99,47],"lab":[70,-21,-37]},{"name":"Tiffany Blue","hex":"0cbaba","rgb":[12,186,186],"cmyk":[94,0,0,27],"hsb":[180,94,73],"hsl":[180,88,39],"lab":[69,-38,-11]},{"name":"Russian Violet","hex":"380036","rgb":[56,0,54],"cmyk":[0,100,4,78],"hsb":[302,100,22],"hsl":[302,100,11],"lab":[10,33,-20]},{"name":"Dark Purple","hex":"26081c","rgb":[38,8,28],"cmyk":[0,79,26,85],"hsb":[320,79,15],"hsl":[320,65,9],"lab":[6,18,-6]},{"name":"Xiketic","hex":"0f060c","rgb":[15,6,12],"cmyk":[0,60,20,94],"hsb":[320,60,6],"hsl":[320,43,4],"lab":[2,3,-1]}]
+
+/* XML */
+<palette>
+  <color name="White" hex="ffffff" r="255" g="255" b="255" />
+  <color name="Key Lime" hex="edffab" r="237" g="255" b="171" />
+  <color name="Cyan Process" hex="01baef" r="1" g="186" b="239" />
+  <color name="Tiffany Blue" hex="0cbaba" r="12" g="186" b="186" />
+  <color name="Russian Violet" hex="380036" r="56" g="0" b="54" />
+  <color name="Dark Purple" hex="26081c" r="38" g="8" b="28" />
+  <color name="Xiketic" hex="0f060c" r="15" g="6" b="12" />
+</palette>
