@@ -1,5 +1,6 @@
 #entity salesman 
 import asyncio
+
 from src.core.usecases import *
 from bcrypt import hashpw,gensalt
 from src.infra.helpers import response,exception,response_files
@@ -25,7 +26,6 @@ class EntitySalesman:
         "business_name":data['business_name'],
         "password_hash":await self.__password_hash(data['password']),
         "nif":data['nif'],
-        "doc_identification":data['doc_identification'],
         "desc_business":data['desc_business']
         }
         #usecase registred
@@ -217,3 +217,69 @@ class EntitySalesman:
                 return response(msg={"msg":"post not found"},status=404)
         except Exception as exc:
             raise exception(detail=f"error:{exc}",status=404)
+        
+    #-------------------------------------------------------------------------
+    #receive email from salesman
+    async def receive_email(self,data):
+        try:
+            result=await receive_email_for_alter_pass(data)
+            if result is not 0:
+                return response(msg={"msg":"email received with success"},status=200)
+            else:
+                return response(msg={'msg':"email not found"},status=404)
+        except Exception as exc:
+            raise exception(detail=f"error:{exc}",status=404)
+    
+    
+    #-------------------------------------------------------------------------
+    #alter password salesman
+    async def alter_password(self,data):
+        values={
+            "code":data['code'],
+            "email_receive":data['email_salesman'],
+            "new_password_hash":await self.__password_hash(data['new_password'])
+        }
+        try:
+            result=await alter_password_salesman(values)
+            if result is not 0:
+                return response(msg={"msg":"password update with success"},status=200)
+            else:
+                return response(msg={"msg":"salesman not found"},status=404)
+        except Exception as exc:
+            raise exception(detail=f"error:{exc}",status=404)
+        
+    #-------------------------------------------------------------------------
+    #add marker position in map
+    async def post_position(self,id_salesman,data):
+        try:
+            result=await add_position_for_salesman(id_salesman,data)
+            if result:
+                return response(msg={"msg":"add markers coordinates with success"},status=201)
+            else:
+                return response(msg={"msg":"markers lat and lng not found"},status=404)
+        except Exception as exc:
+            raise exception(detail=f"{exc}",status=404)
+    
+    #-------------------------------------------------------------------------
+    #get marker position in map
+    async def get_marker_position(self,id_salesman:int):
+        try:
+            result=await get_marker_for_salesman(id_salesman)
+            if result:
+                return response(msg={result},status=200)
+            else:
+                return response(msg={"msg":"salesman not found"},status=404)
+        except Exception as exc:
+            raise exception(detail=f"{exc}",status=404)
+    
+    #-------------------------------------------------------------------------
+    #update marker position in map
+    async def update_marker_position(self,id_salesman,data):
+        try:
+            result=await update_marker_position_salesman(id_salesman,data)
+            if result is 0:
+                return response(msg={"msg":"markers not found"}, status=404)
+            else:
+                return response(msg={"smg"},status=200)
+        except Exception as exc:
+            raise exception(detail=f"{exc}",status=404)

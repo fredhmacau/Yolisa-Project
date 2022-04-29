@@ -15,7 +15,7 @@ export default function LinksMobile(props) {
         <HStack>
           <NavItem link="/" label="INÍCIO" />
           <NavItem link="/login" label="| SOU UM VENDEDOR" />
-          <NavItem link="/" label="| SOBRE NÓS " />
+          
         </HStack>
       </Box>
     </>

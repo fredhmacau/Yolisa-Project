@@ -1,9 +1,10 @@
-import FormForAlterPassword from "../components/AlterPassword/FormForAlterPassword"
 
-export default function AlterPassword(){
+import MainContextAlterPassword from "../components/AlterPassword/MainContextAlterPassword"
+
+export default function AlterPassword({animate}){
     return(
         <>
-            <FormForAlterPassword/>
+            <MainContextAlterPassword/>
         </>
     )
 }

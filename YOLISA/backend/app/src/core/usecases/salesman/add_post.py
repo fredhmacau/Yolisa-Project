@@ -7,8 +7,6 @@ async def post_product_from_salesman(id_salesman:int,**data):
     values={
         "product_name":data['product_name'],
         "price":data['price'],
-        "tags":data['tags'],
-        "localization":data['localization'],
         "desc_product":data['desc_product'],
         "img_name":data['img'].filename,
         "type_img":data['img'].content_type,
@@ -16,9 +14,9 @@ async def post_product_from_salesman(id_salesman:int,**data):
         "salesman_id":id_salesman        
     }
     #query
-    query="""INSERT INTO publish_product(product_name,price,tags,localization,desc_product,
+    query="""INSERT INTO publish_product(product_name,price,desc_product,
              img_name,type_img,img,salesman_id)
-             VALUES(:product_name,:price,:tags,:localization,
+             VALUES(:product_name,:price,
              :desc_product,:img_name,:type_img,:img,:salesman_id
              )
           """

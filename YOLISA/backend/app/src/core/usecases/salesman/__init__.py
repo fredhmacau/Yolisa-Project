@@ -15,3 +15,8 @@ from .get_posts import get_posts_from_salesman
 from .update_post import update_post_from_salesman
 from .delete_post import delete_post_from_salesman
 from .get_total import get_total_of_post
+from .receive_email import receive_email_for_alter_pass
+from .alter_password import alter_password_salesman
+from .post_position import add_position_for_salesman
+from .get_position import get_marker_for_salesman
+from .update_position import update_marker_position_salesman

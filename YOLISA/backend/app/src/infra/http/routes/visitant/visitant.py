@@ -50,3 +50,10 @@ async def get_img_the_post(id_post:int):
 async def get_posts_the_salesman(id_salesman:int):
     return await adapter.view_posts_salesman(id_salesman)
 
+
+# route http://127.0.0.1:8000/api/v1/visitant/info/salesman/{id}/markers
+@visitant.get("/info/salesman/{id_salesman}/markers",tags=['visitant'])
+async def get_markers_for_salesman(id_salesman:int):
+    return await adapter.get_markers(id_salesman)
+
+ 

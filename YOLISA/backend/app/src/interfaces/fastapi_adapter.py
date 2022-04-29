@@ -95,3 +95,31 @@ class FasAPIAdapter:
     # route http://127.0.0.1:8000/api/v1/visitant/info/post/{id}
     async def  get_info_post(self,id_post:int):
         return await visitant.get_infomations_of_post(id_post)
+    
+    
+    # route http://127.0.0.1:8000/api/v1/salesman/receive_email
+    async def receive_email(self,data):
+        return await salesman.receive_email(data)
+    
+    # route http://127.0.0.1:8000/api/v1/salesman/alter-pass
+    async def alter_pass(self,data):
+        return await salesman.alter_password(data)
+    
+    
+    # route http://127.0.0.1:8000/api/v1/salesman/acount/add-marker-position
+    async def post_position(self,id_salesman,data):
+        return await salesman.post_position(id_salesman,data)
+    
+    
+    # route http://127.0.0.1:8000/api/v1/salesman/acount/get-marker-position
+    async def get_marker_positon(self,id_salesman):
+        return await salesman.get_marker_position(id_salesman)
+    
+    #route http://127.0.0.1:8000/api/v1/salesman/acount/update-marker-position
+    async def update_marker_position(self,id_salesman,data):
+        return await salesman.update_marker_position(id_salesman,data)
+    
+    # route http://127.0.0.1:8000/api/v1/visitant/info/salesman/{id}/markers
+    async def get_markers(self,id_salesman):
+        return await visitant.get_markers_salesman(id_salesman)
+    

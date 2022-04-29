@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import FadeIn from "../Landing/animetions/FadeIn";
-
+import {useNavigate} from "react-router-dom";
 
 export default function SendEmail() {
     
@@ -20,9 +20,10 @@ export default function SendEmail() {
       register,
       formState: { errors, isSubmitting },
     } = useForm();
+    const navegate=useNavigate();
     function onSend(values) {
       console.log(values);
-     
+      navegate("/alter-pass");
     }
 
   return (

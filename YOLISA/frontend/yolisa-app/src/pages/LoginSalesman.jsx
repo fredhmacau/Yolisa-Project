@@ -1,9 +1,10 @@
-import FormLogin from "../components/LoginSalesman/FormLogin"
+import ContextLogin from "../components/LoginSalesman/ContextLogin"
 
-export default function LoginSalesman(){
+
+export default function LoginSalesman({animate}){
     return (
         <>
-            <FormLogin/>
+            <ContextLogin/>
         </>
     )
 }

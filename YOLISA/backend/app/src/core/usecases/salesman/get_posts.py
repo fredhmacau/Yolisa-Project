@@ -5,8 +5,7 @@ import asyncio
 async def get_posts_from_salesman(id_salesman:int):
     #query
     query="""SELECT id,product_name,
-             price,JSON_PRETTY(tags) as tags,                       
-             localization,desc_product,
+             price,desc_product,
              salesman_id FROM publish_product 
              WHERE salesman_id=:id_salesman
              """

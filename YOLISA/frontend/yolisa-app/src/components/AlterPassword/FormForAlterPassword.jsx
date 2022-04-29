@@ -16,7 +16,7 @@ export default function FormForAlterPassword() {
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting }
   } = useForm();
   function onSend(values) {
     console.log(values);
@@ -98,7 +98,7 @@ export default function FormForAlterPassword() {
               color="yolisa.p"
               type="email"
               {...register("email", {
-                required: "Código inválido",
+                required: "Email inválido",
                 maxLength: 6,
               })}
             />
@@ -115,7 +115,7 @@ export default function FormForAlterPassword() {
               color="yolisa.p"
               type="password"
               {...register("newpassword", {
-                required: "Código inválido",
+                required: "Caracteres insuficientes",
                 maxLength: 6,
               })}
             />

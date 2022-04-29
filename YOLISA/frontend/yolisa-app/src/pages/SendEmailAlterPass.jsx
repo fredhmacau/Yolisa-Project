@@ -1,9 +1,10 @@
-import MainReset from "../components/ResetPassword/MainReset";
+import ContextResetPassowrd from "../components/ResetPassword/ContextResetPassword";
 
-export default function SendEmailAlterPass(){
+
+export default function SendEmailAlterPass({animate}){
     return (
         <>
-            <MainReset/>
+            <ContextResetPassowrd/>
         </>
     )
 }

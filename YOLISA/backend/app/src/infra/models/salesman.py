@@ -1,3 +1,4 @@
+from operator import index
 import sqlalchemy as sa
 from src.infra.db import Base
 
@@ -7,14 +8,11 @@ class Salesman(Base):
     __tablename__ = "salesman"
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=True, index=True)
     username = sa.Column(sa.String(60), nullable=False, unique=True)
-    email = sa.Column(sa.String(80), nullable=True, unique=True)
+    email = sa.Column(sa.String(80), nullable=True, unique=True,index=True)
     business_name = sa.Column(sa.String(80), nullable=False)
     password_hash = sa.Column(sa.String(120), nullable=False)
     status = sa.Column(sa.Boolean, default=False, nullable=True)
     nif = sa.Column(sa.String(20), nullable=False)
-    doc_name=sa.Column(sa.Text,nullable=False)
-    doc_type=sa.Column(sa.String(60),nullable=False)
-    doc_identification = sa.Column(sa.LargeBinary, nullable=True)
     desc_business = sa.Column(sa.Text, nullable=True)
     contact = sa.orm.relationship(
         "ContactSalesman",
@@ -34,3 +32,11 @@ class Salesman(Base):
         cascade="all,delete",
         back_populates="salesman",
     )
+    restore_pass=sa.orm.relationship(
+        "AlterPassword",
+        uselist=False,
+        cascade="all,delete",
+        back_populates="salesman",
+    )
+    position_map=sa.orm.relationship("PositionMap",uselist=False,cascade="all,delete",back_populates="salesman")
+    

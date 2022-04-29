@@ -12,8 +12,11 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import LinkRestorePass from "./LinkRestorePass";
-import { Link as BrowserLink } from "react-router-dom";
+import { Link as BrowserLink,useNavigate } from "react-router-dom";
 import FadeIn from "../Landing/animetions/FadeIn";
+import { useContext } from "react";
+import AuthContext from "../../context/auth-context";
+
 
 export default function FormLogin() {
   const {
@@ -21,8 +24,13 @@ export default function FormLogin() {
     register,
     formState: { errors, isSubmitting },
   } = useForm();
+  const ctx=useContext(AuthContext)
+  const navigate=useNavigate()
+
   function onLogin(values) {
     console.log(values);
+    ctx.isLogginSalesman=true;
+    navigate("/acount-salesman")
   }
 
   return (
@@ -42,7 +50,7 @@ export default function FormLogin() {
             lineHeight="1.2em"
             textAlign="center"
           >
-            Iniciar secção na sua conta
+            Inicia secção na sua conta
           </Text>
           <chakra.p
             mt="2"

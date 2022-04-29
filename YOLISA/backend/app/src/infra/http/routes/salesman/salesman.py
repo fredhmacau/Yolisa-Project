@@ -56,3 +56,5 @@ async def delete_salesman(token:str=Depends(oauth2_token)):
 from .salesman_img import *
 from .salesman_contact import *
 from .salesman_posts import *
+from .salesman_alter_pass import *
+from .salesman_in_map import *

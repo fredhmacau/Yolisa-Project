@@ -1,4 +1,5 @@
 import asyncio
+from unittest import result
 from src.infra.helpers import response,exception,response_files
 from src.core.usecases import *
 #class model Visitant Entity
@@ -44,3 +45,15 @@ class EntityVisitant:
                 return response(msg={"msg":"product not found"},status=404)
         except Exception as exc:
             raise exception(detail=f"error:{exc}",status=406)
+        
+    #-------------------------------------------------------------------------
+    #get markers the salesman
+    async def get_markers_salesman(self,id_salesman):
+        try:
+            result=await get_markers_for_salesman(id_salesman)
+            if result:
+                return result
+            else:
+                return response(msg={"msg":"markers not found"},status=404)  
+        except Exception as exc:
+            raise exception(detail=f"error:{exc}",status=404)   

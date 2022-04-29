@@ -1,9 +1,10 @@
-import FormNewAccount from "../components/CreateAccount/FormNewAccount";
+import ContextCreateAcount from "../components/CreateAccount/ContextCreateAcount";
 
-export default function CreateAccountSalesman(){
+
+export default function CreateAccountSalesman({animate}){
     return(
         <>
-        <FormNewAccount/>
+        <ContextCreateAcount/>
         </>
     )
 }

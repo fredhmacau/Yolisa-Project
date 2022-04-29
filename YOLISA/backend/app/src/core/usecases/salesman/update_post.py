@@ -5,14 +5,15 @@ import asyncio
 async def update_post_from_salesman(id_post:int,**data):
     values={
         "product_name":data['product_name'],
-        "localization":data['localization'],
+        "price":data['price'],
         "desc_product":data['desc_product'],
         "post_id":id_post
     }
     
     #query
     query="""UPDATE publish_product SET product_name=:product_name,
-            localization=:localization,desc_product=:desc_product
+            desc_product=:desc_product,
+            price=:price
             WHERE id=:post_id;"""
             
     #conn db

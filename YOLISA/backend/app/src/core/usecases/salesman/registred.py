@@ -12,9 +12,6 @@ async def registred_salesman(**data):
         "business_name":data['business_name'],
         "password_hash":data['password_hash'],
         "nif":data['nif'],
-        "doc_name":data['doc_identification'].filename,
-        "doc_type":data['doc_identification'].content_type,
-        "doc_identification":await data['doc_identification'].read(),
         "desc_business":data['desc_business']
     }
     
@@ -22,9 +19,9 @@ async def registred_salesman(**data):
     async with database as conn:
         #query
         sql="""INSERT INTO salesman(username,email,business_name,password_hash,nif,
-                doc_name,doc_type,doc_identification,desc_business) 
+                desc_business) 
                 values(:username,:email,:business_name,
-                :password_hash,:nif,:doc_name,:doc_type,:doc_identification,
+                :password_hash,:nif,
                 :desc_business)"""
         #try/except
         
