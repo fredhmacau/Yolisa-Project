@@ -5,3 +5,4 @@ from .publish_product import PublishProduct
 from .salesman import Salesman
 from .receive_email_for_alter_pass import AlterPassword
 from .position_map import PositionMap
+from .profile_views import ProfileViews

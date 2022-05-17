@@ -5,6 +5,7 @@ import FormLogin from "./FormLogin";
 
 export default function ContextLogin(){
     const ctx=useContext(AuthContext)
+    ctx.isLogginSalesman=localStorage.getItem("token")?true:false
     return(
     <>
         {

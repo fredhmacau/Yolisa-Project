@@ -5,6 +5,7 @@ import EditMap from '../EditMap';
 
 export default function ContextEditMap(){
     const ctx = useContext(AuthContext);
+    ctx.isLogginSalesman = localStorage.getItem("token") ? true : false;
     return (
         <>
             {

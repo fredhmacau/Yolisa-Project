@@ -1,7 +1,7 @@
 import { Badge, HStack, Image,Box,Flex, Text, VStack,chakra } from "@chakra-ui/react";
-import example from "../../assets/imgs/banner5.png";
+
 import MoreFunctionsPost from "./MoreFunctionsPost";
-export default function ViewPost() {
+export default function ViewPost({ imagePost, productName, price, descProduct,idPost}) {
   return (
     <>
       <Flex
@@ -14,7 +14,7 @@ export default function ViewPost() {
         mt="1rem"
       >
         <Box w={{ base: "100%", md: "40%" }} roundedLeft="md" p="3">
-          <Image src={example} size="md" rounded="md" objectFit="cover" />
+          <Image src={imagePost} border="2px" borderColor="gray.200" w="full" h="10rem" rounded="md" objectFit="cover" />
         </Box>
         <Flex
           w={{ base: "100%", md: "60%" }}
@@ -38,25 +38,15 @@ export default function ViewPost() {
                   fontWeight="medium"
                   lineHeight="1em"
                 >
-                  Caderno bravo
+                  {productName}
                 </Text>
                 <Box>
-                    <MoreFunctionsPost/>
+                  <MoreFunctionsPost idPost={idPost} />
                 </Box>
               </Flex>
 
               <HStack>
-                <Badge
-                  px="1"
-                  bgColor="#1b2342"
-                  textColor="yolisa.50"
-                  fontSize="0.625rem"
-                  variant="solid"
-                  fontWeight="500"
-                  rounded="sm"
-                >
-                  luanda
-                </Badge>
+                
                 <Badge
                   px="1"
                   fontSize="0.625rem"
@@ -64,7 +54,7 @@ export default function ViewPost() {
                   variant="solid"
                   bgColor="#74777d"
                 >
-                  92424333
+                  {price}kz
                 </Badge>
               </HStack>
               <chakra.p
@@ -79,9 +69,7 @@ export default function ViewPost() {
                 noOfLines="5"
                 pb="4"
               >
-                Como uma plataforma com foco exclusivo a vendedores de materiais
-                escolares em angola, conheça quantos vendedores estão reunidos
-                aqui na nossa plataforma.
+                {descProduct}
               </chakra.p>
             </VStack>
           </Box>

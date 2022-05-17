@@ -7,14 +7,14 @@ async def update_contact_from_salesman(id_salesman:int,**data):
     values={
         "phone_number":data['phone_number'],
         "province_focus":data['province_focus'],
-        "city_focus":data['city_focus'],
+        
         "desc_localization":data['desc_localization'],
         "salesman_id":id_salesman
     } 
     #query
     query="""UPDATE contact_salesman SET phone_number=:phone_number,
             province_focus=:province_focus,
-            city_focus=:city_focus,desc_localization=:desc_localization
+            desc_localization=:desc_localization
             WHERE salesman_id=:salesman_id;"""
     
     #conn db

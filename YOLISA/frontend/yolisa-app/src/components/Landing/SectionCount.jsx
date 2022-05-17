@@ -1,13 +1,39 @@
 import { chakra, Flex, SimpleGrid, Stack, Text} from "@chakra-ui/react";
 import ban from "../../assets/imgs/banner4.jpg";
+import {useState,useEffect} from "react";
+import useHttp from "../../Hooks/useHttp";
 export default function SectionCount() {
+  const [countSalesman,setCountSalesman]=useState(1);
+  const [countPosts,setCountPosts]=useState(1)
+  const {viewTotalPosts,viewTotalSalesman}=useHttp();
+
+  useEffect(()=>{
+    const result=viewTotalPosts();
+    result.then((resp)=>{
+      if (resp.status === 200) {
+        
+        setCountPosts(resp.data[0].total);
+      }
+    });
+    const result2=viewTotalSalesman();
+    result2.then((resp)=>{
+      if (resp.status === 200) {
+        setCountSalesman(resp.data.length);
+      }
+    });
+  },[])
   return (
     <Flex mt="7.5rem" bg="yolisa.bg" maxWidth="1100px" marginX="auto">
-      <Stack direction="row"h={{base:"600",md:"380"}} shadow="md" w="full" bg="#04091e4f">
+      <Stack
+        direction="row"
+        h={{ base: "600", md: "380" }}
+        shadow="md"
+        w="full"
+        bg="#04091e4f"
+      >
         <Flex
           w="50%"
           display={{ base: "none", md: "flex" }}
-          
           bgImage={ban}
           bgRepeat="no-repeat"
           bgPos="center"
@@ -41,7 +67,6 @@ export default function SectionCount() {
               textAlign="left"
               lineHeight="1.2em"
               maxWidth="450px"
-              
               fontWeight="300"
             >
               Como uma plataforma com foco exclusivo a vendedores de materiais
@@ -62,7 +87,7 @@ export default function SectionCount() {
                   fontWeight="500"
                   lineHeight="1.2em"
                 >
-                  +36
+                  +{countSalesman}
                 </Text>
                 <chakra.p
                   mt="4"
@@ -87,7 +112,7 @@ export default function SectionCount() {
                   fontWeight="500"
                   lineHeight="1.2em"
                 >
-                  +136
+                  +{countPosts}
                 </Text>
                 <chakra.p
                   mt="4"

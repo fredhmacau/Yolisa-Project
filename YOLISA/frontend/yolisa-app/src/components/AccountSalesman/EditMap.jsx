@@ -3,13 +3,17 @@ import FadeIn from "../Landing/animetions/FadeIn";
 import { MapContainer, TileLayer } from "react-leaflet";
 import GetPosition from "./MarkerPositions";
 import { useRef } from "react";
+import useHttp from "../../Hooks/useHttp";
+import {useNavigate} from "react-router-dom"
+import { Link as BrowserLink } from "react-router-dom";
 
 export default function EditMap() {
   const button = useRef(null);
   //dados da localizacao do vendedor
   //localizacao inicial do mapa
   const center = [-11.935211, 18.512743];
-
+  const {updatePosition} =useHttp()
+  const navigate=useNavigate();
   const handlerMarker = (positon) => {
     const markers = [];
 
@@ -17,17 +21,26 @@ export default function EditMap() {
     const filtersPosition = markers.filter((values) => values !== null);
     if (filtersPosition.length > 0) {
       button.current.removeAttribute("disabled");
+      const cordenates = [filtersPosition.slice(-1)];
+      const result = updatePosition(cordenates[0][0]);
     }
-    console.log(filtersPosition);
+   
     
   };
 
   return (
     <>
-      <Flex w="full" h="100vh" justifyContent={{base:"center",lg:"normal"}} direction="column" align="center" bg="#f8fafc">
+      <Flex
+        w="full"
+        h="100vh"
+        justifyContent={{ base: "center", lg: "normal" }}
+        direction="column"
+        align="center"
+        bg="#f8fafc"
+      >
         <VStack
           w="full"
-          mt={{base:"2rem",lg:"2.5rem"}}
+          mt={{ base: "2rem", lg: "2.5rem" }}
           marginX="auto"
           display="flex"
           justifyContent="center"
@@ -81,23 +94,31 @@ export default function EditMap() {
                 center={center}
                 zoom={8}
               >
-                <TileLayer url="https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png" />
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
                 <GetPosition positions={handlerMarker} />
               </MapContainer>
             </Flex>
 
-            <Button
-              mt="1.4rem"
-              _hover={{ bg: "yolisa.button", color: "yolisa.50" }}
-              bg="yolisa.button"
-              color="yolisa.50"
-              type="button"
-              w="full"
-              ref={button}
-              disabled
-            >
-              Atualizar
-            </Button>
+            <Flex w="full" justifyContent="center" align="center">
+              <BrowserLink to="/acount-salesman">
+                <Button
+                  mt="1.4rem"
+                  _hover={{ bg: "yolisa.button", color: "yolisa.50" }}
+                  bg="yolisa.button"
+                  color="yolisa.50"
+                  type="button"
+                  w="full"
+                  ref={button}
+                  marginX="auto"
+                  disabled
+                >
+                  Concluir configurações
+                </Button>
+              </BrowserLink>
+            </Flex>
           </FadeIn>
         </Flex>
       </Flex>

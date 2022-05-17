@@ -4,8 +4,8 @@ import Hero from "./Hero";
 import Navbar from "./Navbar";
 import SectionCount from "./SectionCount";
 import SectionInformation from "./SectionInformation";
-import UltimeAddSalesman from "./UltimeAddSalesman";
-import UltimePosts from "./UltimePosts";
+/* import UltimeAddSalesman from "./UltimeAddSalesman";
+import UltimePosts from "./UltimePosts"; */
 
 export default function Index() {
   return (
@@ -15,8 +15,6 @@ export default function Index() {
         <Hero />
         <SectionInformation />
         <SectionCount />
-        <UltimeAddSalesman />
-        <UltimePosts />
       </Box>
       <Footer pos="absolute" />
     </>

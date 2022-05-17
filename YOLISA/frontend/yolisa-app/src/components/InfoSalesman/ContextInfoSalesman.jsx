@@ -5,6 +5,7 @@ import InfoPage from "./InfoPage"
 
 export default function ContextInfoSalesman() {
   const ctx = useContext(AuthContext);
+  ctx.isLogginSalesman = localStorage.getItem("token") ? true : false;
   return (
     <>
       {ctx.isLogginSalesman ? (

@@ -8,41 +8,57 @@ import {
   Input,
   FormErrorMessage,
   Button,
-  
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  Image,
+
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import LinkRestorePass from "./LinkRestorePass";
-import { Link as BrowserLink,useNavigate } from "react-router-dom";
+import { Link as BrowserLink, useNavigate } from "react-router-dom";
 import FadeIn from "../Landing/animetions/FadeIn";
-import { useContext } from "react";
-import AuthContext from "../../context/auth-context";
-
-
+import logo from "../../YOLISA-logo.png";
+import { useState } from "react";
+import useHttp from "../../Hooks/useHttp";
 export default function FormLogin() {
+  const [error, setError] = useState(false);
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm();
-  const ctx=useContext(AuthContext)
-  const navigate=useNavigate()
+  const {singInSalesman} =useHttp()
+  
+  const navigate = useNavigate();
 
-  function onLogin(values) {
-    console.log(values);
-    ctx.isLogginSalesman=true;
-    navigate("/acount-salesman")
+   const onLogin=async function (values) {
+    const result= singInSalesman(values)
+    await result.then(resp=>{
+      if (resp.status===200) {
+        localStorage.setItem("token", resp.data.access_token);
+        navigate("/check/acount-salesman");
+      
+        
+      }
+    }).catch((error)=>setError(true));
+     
   }
 
   return (
+    <>
+    
     <Flex w="full" h="100vh" direction="column" align="center" bg="#f8fafc">
-        <VStack
-          w="full"
-          mt="7.5rem"
-          marginX="auto"
-          display="flex"
-          justifyContent="center"
-          >
-          <FadeIn>
+      <VStack
+        w="full"
+        mt="6.5rem"
+        marginX="auto"
+        display="flex"
+        justifyContent="center"
+      >
+        <FadeIn>
+          <Image src={logo} mb="0.5rem" marginX="auto"  h="4rem"/>
           <Text
             color="yolisa.title"
             fontSize="2rem"
@@ -50,7 +66,7 @@ export default function FormLogin() {
             lineHeight="1.2em"
             textAlign="center"
           >
-            Inicia secção na sua conta
+            Inicie sessão para continuar
           </Text>
           <chakra.p
             mt="2"
@@ -62,23 +78,45 @@ export default function FormLogin() {
             lineHeight="1.2em"
             letterSpacing="wide"
           >
-            Aproveite os muitos recursos para vendedores
-          </chakra.p> 
-          </FadeIn>
-        </VStack>
-       
-        <chakra.form
-          onSubmit={handleSubmit(onLogin)}
-          maxWidth={{ base: "1000px", md: "500px" }}
-          mt="1.6rem"
-          rounded="md"
-          shadow="md"
-          w={{ base: "100%", md: "60%" }}
-          h="auto"
-          bg="#ffffff"
-          p="8"
+            Para aceder ao seu perfil, insira os seus dados de acesso.
+          </chakra.p>
+        </FadeIn>
+      </VStack>
+      {error && (
+        <Flex w="full" mt="2" maxW="500px">
+          <Alert
+            display="flex"
+            rounded="md"
+            status="error"
+            variant="solid"
+            justifyContent="center"
           >
-          <FadeIn>
+            <Flex
+              direction="column"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <AlertIcon />
+              <AlertTitle>Dados inválidos</AlertTitle>
+              <AlertDescription>
+                Verifique os dados inseridos e tente novamente.
+              </AlertDescription>
+            </Flex>
+          </Alert>
+        </Flex>
+      )}
+      <chakra.form
+        onSubmit={handleSubmit(onLogin)}
+        maxWidth={{ base: "1000px", md: "500px" }}
+        mt="1.6rem"
+        rounded="md"
+        shadow="md"
+        w={{ base: "100%", md: "60%" }}
+        h="auto"
+        bg="#ffffff"
+        p="8"
+      >
+        <FadeIn>
           <FormControl isInvalid={errors.username}>
             <FormLabel
               htmlFor="username"
@@ -86,7 +124,7 @@ export default function FormLogin() {
               color="yolisa.p"
               pl="1"
             >
-              Nome de usuario:
+              Nome de usuário:
             </FormLabel>
             <Input
               id="username"
@@ -146,16 +184,17 @@ export default function FormLogin() {
                 _hover={{ bg: "yolisa.bg", color: "yolisa.50" }}
                 bg="yolisa.bg"
                 color="yolisa.50"
-                type="submit"
+                type="button"
                 w="full"
-                isLoading={isSubmitting}
+               
               >
                 Criar conta de vendedor
               </Button>
             </BrowserLink>
           </FormControl>
-      </FadeIn>
-        </chakra.form>
+        </FadeIn>
+      </chakra.form>
     </Flex>
+    </>
   );
 }

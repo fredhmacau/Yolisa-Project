@@ -23,3 +23,12 @@ async def alter_password_salesman(data):
             
             async with database as conn:
                 return await conn.execute(query=query,values=value_password)
+#function main
+async def main():
+    await database.connect()
+    task1=asyncio.create_task(alter_password_salesman)
+    await task1
+    await database.disconnect()
+
+if __name__=="__main__":
+    asyncio.run(main())

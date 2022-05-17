@@ -12,9 +12,10 @@ async def post_position(form_data:Request,token:str=Depends(oauth2_token)):
     return await adapter.post_position(id_salesman,data)
     
 #route http://127.0.0.1:8000/api/v1/salesman/acount/get-marker-position
-@salesman.get("/get-marker-position/{id_salesman}",tags=['salesman'])
-async def get_marker_position(id_salesman:int):
-    return await adapter.get_marker_position(id_salesman)
+@salesman.get("acount/get-marker-position",tags=['salesman'])
+async def get_marker_position(token:str=Depends(oauth2_token)):
+    id_salesman=await salesman_token.get_current_user(token)
+    return await adapter.get_markers(id_salesman)
 
 #route http://127.0.0.1:8000/api/v1/salesman/acount/update-marker-position
 @salesman.put("/acount/update-marker-position",tags=['salesman'])

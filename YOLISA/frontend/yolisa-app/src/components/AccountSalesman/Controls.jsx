@@ -54,34 +54,32 @@ export default function Controls() {
                   >
                     Publicações
                   </Tab>
-                      <Tab
-                        bg="#04124a"
-                        _selected={{
-                          color: "yolisa.50",
-                          bg: "#142b89",
-                        }}
-                        fontWeight="600"
-                        color="yolisa.50"
-                        rounded="md"
-                        fontSize="0.75rem"
-                      >
-                        Publicar
-                      </Tab>
-                  
+                  <Tab
+                    bg="#04124a"
+                    _selected={{
+                      color: "yolisa.50",
+                      bg: "#142b89",
+                    }}
+                    fontWeight="600"
+                    color="yolisa.50"
+                    rounded="md"
+                    fontSize="0.75rem"
+                  >
+                    Publicar
+                  </Tab>
                 </TabList>
               </Container>
               <Flex mt="4" w="full">
                 <TabPanels>
                   <TabPanel>
-                    <Profile />
+                    <Profile/>
                   </TabPanel>
                   <TabPanel>
-                    <ViewPosts/>
+                    <ViewPosts />
                   </TabPanel>
                   <TabPanel>
-                    <CreatePost/>
+                    <CreatePost />
                   </TabPanel>
-                  
                 </TabPanels>
               </Flex>
             </Tabs>

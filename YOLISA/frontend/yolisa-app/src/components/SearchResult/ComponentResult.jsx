@@ -14,15 +14,18 @@ import { AiOutlineSearch } from "react-icons/ai";
 import FadeIn from "../Landing/animetions/FadeIn";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+
 export default function ComponentResult() {
   const params = useParams();
   const navigate =useNavigate();
   const {register,handleSubmit}=useForm();
+ 
   function onSearch(values){
-      console.log(values);
+      
       navigate(`/search=${values.query}`)
 
   }
+
   return (
     <>
       <Flex

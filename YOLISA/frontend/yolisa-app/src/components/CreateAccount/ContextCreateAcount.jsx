@@ -5,6 +5,7 @@ import FormNewAccount from "./FormNewAccount";
 
 export default function ContextCreateAcount(){
     const ctx=useContext(AuthContext);
+    ctx.isLogginSalesman = localStorage.getItem("token") ? true : false;
     return (
         <>
             {

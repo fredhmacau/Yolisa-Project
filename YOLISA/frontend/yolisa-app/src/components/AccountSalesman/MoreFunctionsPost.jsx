@@ -1,10 +1,31 @@
-import { Button } from "@chakra-ui/react";
+import { Button,Box} from "@chakra-ui/react";
 import { Menu, Portal, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { GrMoreVertical } from "react-icons/gr";
-import { FiEdit2 } from "react-icons/fi";
-import {RiDeleteBin3Line} from "react-icons/ri";
+import useHttp from "../../Hooks/useHttp";
 import {Link as BrowserLink} from "react-router-dom";
-export default function MoreFunctionsPost() {
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+} from "@chakra-ui/react";
+import {useState} from "react"
+export default function MoreFunctionsPost({idPost}) {
+const [success, setSuccess] = useState(false);
+const {deletePosted}=useHttp()
+const deletePoster=()=>{
+const result=deletePosted(idPost)
+result.then((resp)=>{
+  if (resp.status===200){
+    setSuccess(true)
+  }
+})
+}
+const onClose = function () {
+  setSuccess(false);
+};
   return (
     <>
       <Menu>
@@ -14,23 +35,29 @@ export default function MoreFunctionsPost() {
         <Portal>
           <MenuList>
             <MenuItem>
-              <BrowserLink to="/acount-salesman/edit-post" replace={true}>
-                <Button
+              <BrowserLink
+                to={`/acount-salesman/edit-post/${idPost}`}
+                replace={true}
+              >
+                <Box
                   variant="ghost"
                   fontSize="0.875rem"
-                  leftIcon={<FiEdit2 />}
                   fontWeight="normal"
+                  rounded="md"
+                  p="2"
+                  textAlign="center"
                 >
                   Editar
-                </Button>
+                </Box>
               </BrowserLink>
             </MenuItem>
             <MenuItem>
               <Button
-                variant="ghost"
+                variant="unstyled"
                 fontSize="0.875rem"
-                leftIcon={<RiDeleteBin3Line />}
                 fontWeight="normal"
+                p="2"
+                onClick={deletePoster}
               >
                 Eliminar
               </Button>
@@ -38,6 +65,34 @@ export default function MoreFunctionsPost() {
           </MenuList>
         </Portal>
       </Menu>
+      {success && (
+        <AlertDialog
+          motionPreset="slideInBottom"
+          onClose={onClose}
+          isOpen={success && true}
+          isCentered
+        >
+          <AlertDialogOverlay />
+
+          <AlertDialogContent>
+            <AlertDialogHeader>Eliminado com sucesso.</AlertDialogHeader>
+
+            <AlertDialogBody>
+              As informações sobre o seu produto foram eliminado com sucesso!
+            </AlertDialogBody>
+            <AlertDialogFooter>
+              <Button
+                onClick={onClose}
+                color="yolisa.50"
+                bg="yolisa.buttonSecondary"
+                ml={3}
+              >
+                OK
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
     </>
   );
 }

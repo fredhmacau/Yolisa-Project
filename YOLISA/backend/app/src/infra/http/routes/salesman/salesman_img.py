@@ -13,9 +13,9 @@ async def add_img_salesman(token:str=Depends(oauth2_token),img:UploadFile=File(.
     
     
 # route http://127.0.0.1:8000/api/v1/salesman/acount/img/get_img
-@salesman.get('/acount/img/get_img',tags=['salesman'])
-async def get_img_salesman(token:str=Depends(oauth2_token)):
-    id_salesman=await salesman_token.get_current_user(token)
+@salesman.get('/acount/{_id}/img/get_img',tags=['salesman'])
+async def get_img_salesman(_id:str):
+    id_salesman=await salesman_token.get_current_user(_id)
     return await adapter.get_img_salesman(id_salesman)
     
 #route http://127.0.0.1:8000/api/v1/salesman/acount/img/update_img

@@ -3,18 +3,18 @@ import asyncio
 
 #add more contact from salesman
 
-async def add_contact_from_salesman(id:int,**data):
+async def add_contact_from_salesman(id_salesman:int,**data):
     #destruture data
     values={
         "phone_number":data['phone_number'],
         "province_focus":data['province_focus'],
-        "city_focus":data['city_focus'],
+   
         "desc_localization":data['desc_localization'],
-        "salesman_id":id
+        "salesman_id":id_salesman
     } 
     query="""INSERT INTO contact_salesman(phone_number,province_focus,
-             city_focus,desc_localization,salesman_id) 
-             VALUES(:phone_number,:province_focus,:city_focus,
+             desc_localization,salesman_id) 
+             VALUES(:phone_number,:province_focus,
             :desc_localization,:salesman_id)"""
     
     #conn db

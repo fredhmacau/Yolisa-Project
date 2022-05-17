@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends,UploadFile,File
+from fastapi import APIRouter, Depends
 from starlette.requests import Request
 from src.interfaces import FasAPIAdapter
 from fastapi.security.oauth2 import OAuth2PasswordBearer
@@ -39,9 +39,9 @@ async def get_salesman(token:str=Depends(oauth2_token)):
 @salesman.put("/acount/update",tags=['salesman'])
 async def update_salesman(form_data:Request,token:str=Depends(oauth2_token)):
         id=await salesman_token.get_current_user(token)
-        #parser data from form 
+         
         data=await form_data.form()
-        #render result of update salesman
+      
         return await adapter.salesman_update(id,**data)
         
 

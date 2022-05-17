@@ -4,22 +4,17 @@ import {
   Box,
   Text,
   VStack,
-  Tabs,
-  TabPanel,
-  TabList,
-  Tab,
-  TabPanels,
   Image,
   chakra
 } from "@chakra-ui/react";
 import FadeIn from "../Landing/animetions/FadeIn";
-import example from "../../assets/imgs/example2.jpg";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { Badge } from "@chakra-ui/react";
 
-export default function InfoProduct() {
+export default function InfoProduct({ idPost, price, descProduct, imageProduct, markers }) {
   return (
     <>
-      <Flex w="full" h="full" mt="2rem">
+      <Flex w="full" h="full" mt="1rem">
         <Flex
           w="full"
           maxWidth="1100px"
@@ -29,7 +24,6 @@ export default function InfoProduct() {
         >
           <Container
             w="full"
-            bg="#e8effb"
             rounded="md"
             h="auto"
             maxHeight="full"
@@ -49,127 +43,147 @@ export default function InfoProduct() {
                 w="full"
                 display="flex"
                 flexDirection="column"
-                maxW="800px"
+                maxW="650px"
                 marginX="auto"
-                p="6"
+                px="2"
               >
                 <VStack
                   w="full"
                   mt="1rem"
-                  marginX="auto"
+                  align="flex-start"
                   display="flex"
-                  justifyContent="center"
-                  mb="4"
+                  justifyContent="flex-start"
+                  mb="2"
                 >
                   <Text
                     color="yolisa.title"
-                    fontSize="1.375rem"
-                    fontWeight="medium"
+                    fontSize="1.475rem"
+                    fontWeight="550"
                     lineHeight="1em"
-                    textAlign="center"
+                    textAlign="left"
                     mb="0.4rem"
                   >
-                    Sobre o produto ou material!
+                    Sobre o material
                   </Text>
                 </VStack>
+                <FadeIn>
+                  <Flex w="full">
+                    <Flex w="full" direction="column" h="auto">
+                      <Flex
+                        w="full"
+                        direction="column"
+                        marginX="auto"
+                        maxWidth="800px"
+                        py="2"
+                        rounded="md"
+                      >
+                        <Badge
+                          textAlign="center"
+                          px="2"
+                          py="2"
+                          bgColor="#1b2342"
+                          textColor="yolisa.50"
+                          fontSize="0.75rem"
+                          variant="solid"
+                          fontWeight="500"
+                          w="165px"
+                          mb="3"
+                        >
+                          Preço: {price}kz
+                        </Badge>
+                        
+                        <Box
+                          mt="4"
+                          w={{ base: "100%" }}
+                          display="flex"
+                          align="flex-start"
+                          flexDirection="column"
+                          mb="1rem"
+                          justifyContent={{ base: "flex-start" }}
+                        >
+                          <Image
+                            
+                            src={imageProduct}
+                            objectFit="cover"
+                            w="14.5rem"
+                            h="12.5rem"
+                          />
+                          <chakra.p
+                            mt="1"
+                            color="yolisa.title"
+                            fontSize="0.75rem"
+                            fontWeight="light"
+                            lineHeight="1.2em"
+                            noOfLines={4}
+                            fontStyle="italic"
+                          >
+                            Imagem do material
+                          </chakra.p>
+                        </Box>
+                        <chakra.p
+                          color="yolisa.title"
+                          fontSize="0.975rem"
+                          fontWeight="medium"
+                          lineHeight="1.2em"
+                          noOfLines={4}
+                        >
+                          {descProduct}.
+                        </chakra.p>
+                      </Flex>
+                    </Flex>
+                  </Flex>
+                </FadeIn>
                 <FadeIn>
                   {/*  */}
                   <Flex
                     w="full"
-                    direction="row"
-                    maxWidth="1100px"
+                    direction="column"
+                    maxWidth="800px"
                     py="2"
-                    bg="#f8fafc"
                     rounded="md"
                   >
-                    <Tabs w="full">
-                      <Container w="full" maxWidth="600px" marginX="auto">
-                        <TabList
-                          w="full"
-                          display="flex"
-                          justifyContent="center"
-                          alignItems="center"
-                          marginX="auto"
-                        >
-                          <Tab>Imagem</Tab>
-                          <Tab>Preço e descrição</Tab>
-                          <Tab>Localização</Tab>
-                        </TabList>
-                      </Container>
-
-                      <TabPanels>
-                        <TabPanel
-                          w="full"
-                          display="flex"
-                          justifyContent="center"
-                          alignItems="center"
-                          p="6"
-                        >
-                          <Image src={example} rounded="md" />
-                        </TabPanel>
-                        <TabPanel>
-                          <Flex w="full" direction="column" h="auto">
-                            <Flex
-                              w="full"
-                              direction="column"
-                              marginX="auto"
-                              maxWidth="800px"
-                              py="2"
-                              px="8"
-                              bg="#f8fafc"
-                              rounded="md"
-                            >
-                              <chakra.p
-                                color="yolisa.title"
-                                fontSize="1.275rem"
-                                fontWeight="medium"
-                                lineHeight="1.2em"
-                                px="3"
-                                noOfLines={4}
-                                mb="0.6rem"
-                              >
-                                Preço:1000kz
-                              </chakra.p>
-
-                              <chakra.p
-                                color="yolisa.title"
-                                fontSize="0.875rem"
-                                fontWeight="medium"
-                                lineHeight="1.2em"
-                                px="3"
-                                noOfLines={4}
-                              >
-                                Como uma plataforma com foco exclusivo a
-                                vendedores de materiais escolares em angola,
-                                conheça quantos vendedores estão reunidos aqui
-                                na nossa plataforma. Como uma plataforma com
-                                foco exclusivo a vendedores de materiais
-                                escolares em angola, conheça quantos vendedores
-                                estão reunidos aqui na nossa plataforma.
-                              </chakra.p>
-                            </Flex>
-                          </Flex>
-                        </TabPanel>
-                        <TabPanel>
-                          <Flex
-                            w="full"
-                            maxWidth="100%"
-                            rounded="md"
-                            marginX="auto"
-                            h="25rem"
-                            maxHeight="25rem"
-                          >
-                            <MapContainer
-                              style={{ width: "100%", height: "100%" }}
-                              center={[-11.935211, 18.512743]}
-                              zoom={8}
-                            >
-                              <TileLayer url="https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png" />
-                            </MapContainer>
-                          </Flex>
-                        </TabPanel>
-                      </TabPanels>
-                    </Tabs>
+                    <VStack
+                      w="full"
+                      mt="1rem"
+                      align="flex-start"
+                      display="flex"
+                      justifyContent="flex-start"
+                      mb="2"
+                    >
+                      <Text
+                        color="yolisa.title"
+                        fontSize="1.475rem"
+                        fontWeight="550"
+                        lineHeight="1em"
+                        textAlign="left"
+                        mb="0.4rem"
+                      >
+                        Localização do estabelecimento
+                      </Text>
+                    </VStack>
+                    <Flex
+                      w="full"
+                      maxWidth="100%"
+                      rounded="md"
+                      marginX="auto"
+                      h="25rem"
+                      mb="1rem"
+                      maxHeight="25rem"
+                    >
+                      <MapContainer
+                        style={{ width: "100%", height: "100%" }}
+                        center={[markers[0], markers[1]]}
+                        zoom={16}
+                      >
+                        <TileLayer
+                          
+                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        <Marker position={[markers[0], markers[1]]}>
+                          <Popup>Capabana</Popup>
+                        </Marker>
+                      </MapContainer>
+                    </Flex>
                   </Flex>
                 </FadeIn>
                 {/*  */}

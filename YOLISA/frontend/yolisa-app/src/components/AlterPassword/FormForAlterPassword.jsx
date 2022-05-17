@@ -8,30 +8,52 @@ import {
   Input,
   FormErrorMessage,
   Button,
+  Image
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import FadeIn from "../Landing/animetions/FadeIn";
-
+import logo from "../../YOLISA-logo.png";
+import { useState } from "react";
+import useHttp from "../../Hooks/useHttp";
+import { Alert } from "@chakra-ui/react";
+import { AlertIcon } from "@chakra-ui/react";
+import { AlertTitle } from "@chakra-ui/react";
+import { AlertDescription } from "@chakra-ui/react";
+import ModalResponse from "../ModalResponse/ModalResponse"
 export default function FormForAlterPassword() {
+  const [error,setError]=useState(false);
+  const [success,setSuccess]=useState(false);
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting }
   } = useForm();
-  function onSend(values) {
-    console.log(values);
+  const {registerAlterPassword}=useHttp()
+  async function onSend(values) {
+      const result=registerAlterPassword(values)
+      await result.then((resp)=>{
+        if (resp.status===200){
+          setSuccess(true)
+          setError(false)
+        }
+      }).catch(()=>{
+        setError(true)
+        setSuccess(false)
+      })
   }
 
   return (
+    <>
     <Flex w="full" h="100vh" direction="column" align="center" bg="#f8fafc">
       <VStack
         w="full"
-        mt="7.5rem"
+        mt="6.5rem"
         marginX="auto"
         display="flex"
         justifyContent="center"
       >
         <FadeIn>
+          <Image src={logo} mb="0.5rem" marginX="auto" h="4rem" />
           <Text
             color="yolisa.title"
             fontSize="2rem"
@@ -55,6 +77,30 @@ export default function FormForAlterPassword() {
           </chakra.p>
         </FadeIn>
       </VStack>
+      {error && (
+        <Flex w="full" marginX="auto" mb="4" mt="2" maxW="600px">
+          <Alert
+            w="full"
+            display="flex"
+            rounded="md"
+            status="error"
+            variant="solid"
+            justifyContent="center"
+          >
+            <Flex
+              direction="column"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <AlertIcon/>
+              <AlertTitle>Ocorreu um erro!</AlertTitle>
+              <AlertDescription>
+                Código de confirmação ou email inválido!
+              </AlertDescription>
+            </Flex>
+          </Alert>
+        </Flex>
+      )}
       <chakra.form
         onSubmit={handleSubmit(onSend)}
         maxWidth={{ base: "1000px", md: "500px" }}
@@ -99,7 +145,7 @@ export default function FormForAlterPassword() {
               type="email"
               {...register("email", {
                 required: "Email inválido",
-                maxLength: 6,
+                
               })}
             />
             <FormErrorMessage>
@@ -108,7 +154,7 @@ export default function FormForAlterPassword() {
           </FormControl>
           <FormControl mt="1rem" isInvalid={errors.newpassword}>
             <FormLabel htmlFor="email" fontWeight="550" color="yolisa.p" pl="1">
-              Palavra-passe:
+              Nova palavra-passe:
             </FormLabel>
             <Input
               id="newpassword"
@@ -116,7 +162,7 @@ export default function FormForAlterPassword() {
               type="password"
               {...register("newpassword", {
                 required: "Caracteres insuficientes",
-                maxLength: 6,
+                
               })}
             />
             <FormErrorMessage>
@@ -139,5 +185,16 @@ export default function FormForAlterPassword() {
         </FadeIn>
       </chakra.form>
     </Flex>
+    {success && (
+      
+        <ModalResponse
+          title="Senha alterada com sucesso!"
+          content="A sua senha foi alterada com sucesso, inicie sessão com a nova senha"
+          link="/login"
+          buttonText="Iniciar sessão"
+          colorButton="yolisa.buttonSecondary"
+        />
+      )}
+    </>
   );
 }

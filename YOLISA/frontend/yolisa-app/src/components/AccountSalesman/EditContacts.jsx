@@ -10,10 +10,17 @@ import {
   Button,
   Select,
   Textarea,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import FadeIn from "../Landing/animetions/FadeIn";
 import {useNavigate} from "react-router-dom"
+import provinces from "./data_local";
+import {useState} from "react";
+import useHttp from "../../Hooks/useHttp";
 
 export default function EditContacts() {
   const {
@@ -21,10 +28,21 @@ export default function EditContacts() {
     register,
     formState: { errors, isSubmitting },
   } = useForm();
+  const [error, setError] = useState(false);
   const navigate=useNavigate();
-  function onSend(values) {
-    console.log(values);
-    navigate("/acount-salesman");
+  const {upContact}=useHttp()
+  async function onUpdateContact(values) {
+    
+     const result = upContact(values);
+     await result
+       .then((resp) => {
+         if (resp.status === 200) {
+           navigate("/acount-salesman");
+         }
+       })
+       .catch((err) => {
+         setError(true);
+       });
 
   }
   const handlerButton=()=>{
@@ -32,10 +50,17 @@ export default function EditContacts() {
   }
   return (
     <>
-      <Flex w="full" h="100vh" justifyContent={{base:"center",lg:"normal"}} direction="column" align="center" bg="#f8fafc">
+      <Flex
+        w="full"
+        h="100vh"
+        justifyContent={{ base: "center", lg: "normal" }}
+        direction="column"
+        align="center"
+        bg="#f8fafc"
+      >
         <VStack
           w="full"
-          mt={{base:"2rem",lg:"2.5rem"}}
+          mt={{ base: "2rem", lg: "2.5rem" }}
           marginX="auto"
           display="flex"
           justifyContent="center"
@@ -64,8 +89,31 @@ export default function EditContacts() {
             </chakra.p>
           </FadeIn>
         </VStack>
+        {error && (
+          <Flex w="full" mt="2" maxW="500px">
+            <Alert
+              display="flex"
+              rounded="md"
+              status="error"
+              variant="solid"
+              justifyContent="center"
+            >
+              <Flex
+                direction="column"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <AlertIcon />
+                <AlertTitle>Dados inválidos</AlertTitle>
+                <AlertDescription>
+                  Verifique os dados inseridos e tente novamente.
+                </AlertDescription>
+              </Flex>
+            </Alert>
+          </Flex>
+        )}
         <chakra.form
-          onSubmit={handleSubmit(onSend)}
+          onSubmit={handleSubmit(onUpdateContact)}
           maxWidth={{ base: "1000px", md: "500px" }}
           mt="1.6rem"
           rounded="md"
@@ -113,32 +161,15 @@ export default function EditContacts() {
                 {...register("provinceFocus")}
                 id="provinceFocus"
                 color="yolisa.p"
+                defaultValue="Luanda"
               >
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
+                {provinces.map((province, i) => (
+                  <option key={i} value={`${province}`}>
+                    {province}
+                  </option>
+                ))}
               </Select>
             </FormControl>
-
-            <FormLabel
-              htmlFor="cityFocus"
-              fontWeight="550"
-              color="yolisa.p"
-              pl="1"
-              mt="1rem"
-            >
-              Município:
-            </FormLabel>
-            <Select
-              placeholder="cacuaco"
-              {...register("cityFocus")}
-              id="cityFocus"
-              color="yolisa.p"
-            >
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-            </Select>
 
             <FormControl
               color="yolisa.p"
@@ -169,20 +200,19 @@ export default function EditContacts() {
                 w="full"
                 isLoading={isSubmitting}
               >
-                Atualizar
+                Atualizar contactos
               </Button>
               <Button
-                
-                mt="0.2rem"
+                mt="0.6rem"
                 _hover={{ bg: "yolisa.bg", color: "yolisa.50" }}
                 bg="yolisa.bg"
                 color="yolisa.50"
                 type="button"
-                w="full"
                 onClick={handlerButton}
-
+                w="full"
+                
               >
-                Alterar endereço
+                Alterar cordenadas
               </Button>
             </FormControl>
           </FadeIn>

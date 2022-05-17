@@ -39,4 +39,4 @@ class Salesman(Base):
         back_populates="salesman",
     )
     position_map=sa.orm.relationship("PositionMap",uselist=False,cascade="all,delete",back_populates="salesman")
-    
+    profileviews=sa.orm.relationship("ProfileViews",uselist=False,cascade="all,delete",back_populates="salesman")

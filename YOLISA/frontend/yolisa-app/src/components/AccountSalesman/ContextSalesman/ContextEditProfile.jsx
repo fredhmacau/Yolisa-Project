@@ -4,6 +4,7 @@ import AuthContext from "../../../context/auth-context"
 import EditProfile from "../EditProfile"
 export default function ContentEditProfile(){
     const ctx=useContext(AuthContext)
+    ctx.isLogginSalesman = localStorage.getItem("token") ? true : false;
     return (
         <>
             {

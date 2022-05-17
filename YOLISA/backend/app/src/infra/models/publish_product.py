@@ -15,6 +15,7 @@ class PublishProduct(Base):
     img_name = sa.Column(sa.String(100), nullable=False)
     type_img = sa.Column(sa.String(60), nullable=False)
     img = sa.Column(sa.LargeBinary, nullable=False)
+    
     salesman_id = sa.Column(
         sa.Integer,
         sa.ForeignKey("salesman.id", ondelete="CASCADE", onupdate="CASCADE"),

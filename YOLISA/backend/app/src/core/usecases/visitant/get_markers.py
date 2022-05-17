@@ -3,7 +3,8 @@ import asyncio
 
 #async
 async def get_markers_for_salesman(id_salesman):
-    query="SELECT * FROM position_map WHERE salesman_id=:id_salesman"
+    query="""SELECT id,concat(st_x(cordenates),',',st_y(cordenates)) as cordenates,salesman_id 
+from position_map WHERE salesman_id=:id_salesman"""
     async with database as conn:
         return await conn.fetch_all(query=query,values={"id_salesman":id_salesman})
     

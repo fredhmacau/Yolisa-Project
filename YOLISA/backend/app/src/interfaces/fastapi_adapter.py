@@ -20,8 +20,8 @@ class FasAPIAdapter:
     
     #route http://127.0.0.1:8000/api/v1/salesman/acount/get
     # route http://127.0.0.1:8000/api/v1/visitant/info/salesman/{id_salesman}
-    async def salesman_get(self,id:int):
-        return await salesman.get(id)
+    async def salesman_get(self,id_salesman:int):
+        return await salesman.get(id_salesman)
     
     #route http://127.0.0.1:8000/api/v1/salesman/acount/update
     async def salesman_update(self,id:int,**data):
@@ -123,3 +123,18 @@ class FasAPIAdapter:
     async def get_markers(self,id_salesman):
         return await visitant.get_markers_salesman(id_salesman)
     
+    # route http://127.0.0.1:8000/api/v1/visitant/info/salesman/{id_salesman}/{id_post}
+    async def get_info_salesman(self,id_salesman,id_post):
+        return await visitant.get_salesman_and_post(id_salesman,id_post)
+    
+    # route http://127.0.0.1:8000/api/v1/visitant/info/salesman/{id}/register_views
+    async def register_views(self,id_salesman:int):
+         return await  visitant.register_views_in_post(id_salesman)
+    
+    # route http://127.0.0.1:8000/api/v1/visitant/info/salesmans/total
+    async def get_all_salesmans(self):
+        return await visitant.get_all_salesmans()
+    
+    # route http://127.0.0.1:8000/api/v1/visitant/info/posts/total
+    async def get_all_posts(self):
+        return await visitant.get_all_posts()

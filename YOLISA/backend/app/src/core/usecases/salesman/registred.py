@@ -23,7 +23,7 @@ async def registred_salesman(**data):
                 values(:username,:email,:business_name,
                 :password_hash,:nif,
                 :desc_business)"""
-        #try/except
+ 
         
         return await conn.execute(query=sql,values=values)
            

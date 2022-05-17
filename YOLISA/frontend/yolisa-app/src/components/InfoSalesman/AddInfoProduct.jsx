@@ -1,113 +1,91 @@
-import {Flex,Container,Box,Text,VStack,chakra} from "@chakra-ui/react";
+import { Flex, Container, Box, Text, VStack, chakra } from "@chakra-ui/react";
 import FadeIn from "../Landing/animetions/FadeIn";
 
-export default function AddInfoProduct(){
-    return (
-      <>
-        <Flex w="full" h="full" mt="2rem">
-          <Flex
+export default function AddInfoProduct({ descSalesman }) {
+  return (
+    <>
+      <Flex w="full" h="full" mt="2rem">
+        <Flex
+          w="full"
+          maxWidth="1100px"
+          justifyContent="center"
+          marginX="auto"
+          direction="column"
+        >
+          <Container
             w="full"
-            maxWidth="1100px"
-            justifyContent="center"
+            rounded="md"
+            h="auto"
+            maxHeight="full"
+            maxWidth="800px"
             marginX="auto"
-            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            display="flex"
           >
-            <Container
+            <Flex
               w="full"
-              bg="#e8effb"
-              rounded="md"
-              h="auto"
-              maxHeight="full"
-              maxWidth="800px"
-              marginX="auto"
+              direction="column"
               justifyContent="center"
               alignItems="center"
-              display="flex"
             >
-              <Flex
+              <Box
                 w="full"
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
+                display="flex"
+                flexDirection="column"
+                maxW="650px"
+                marginX="auto"
+                px="2"
               >
-                <Box
+                <VStack
                   w="full"
+                  mt="1rem"
+                  align="flex-start"
                   display="flex"
-                  flexDirection="column"
-                  maxW="800px"
-                  marginX="auto"
-                  p="6"
+                  justifyContent="flex-start"
+                  mb="2"
                 >
-                  <VStack
-                    w="full"
-                    mt="1rem"
-                    marginX="auto"
-                    display="flex"
-                    justifyContent="center"
-                    mb="4"
+                  <Text
+                    color="yolisa.title"
+                    fontSize="1.475rem"
+                    fontWeight="550"
+                    lineHeight="1em"
+                    mb="1rem"
                   >
-                    
-                      <Text
-                        color="yolisa.title"
-                        fontSize="1.375rem"
-                        fontWeight="medium"
-                        lineHeight="1em"
-                        textAlign="center"
-                        mb="1rem"
-                      >
-                        Um pouco sobre o vendedor!
-                      </Text>
-                      {/*  */}
-                      <FadeIn>
-                        <Flex w="full" p="2" >
-                          
-                            <Flex w="full" direction="column" h="auto">
-                              <Flex
-                                w="full"
-                                direction="row"
-                                marginX="auto"
-                                maxWidth="800px"
-                                py="2"
-                                px="8"
-                                bg="#f8fafc"
-                                rounded="md"
-                                
-                              >
-                                
-                            
-                                <chakra.p
-                                  color="yolisa.title"
-                                  fontSize="0.875rem"
-                                  fontWeight="medium"
-                                  lineHeight="1.2em"
-                                  px="3"
-                                  noOfLines={4}
-                                >
-                                  Como uma plataforma com foco exclusivo a
-                                  vendedores de materiais escolares em angola,
-                                  conheça quantos vendedores estão reunidos aqui
-                                  na nossa plataforma. Como uma plataforma com
-                                  foco exclusivo a vendedores de materiais
-                                  escolares em angola, conheça quantos
-                                  vendedores estão reunidos aqui na nossa
-                                  plataforma.
-                                </chakra.p>
-
-                                
-                            
-                            </Flex>
-                            </Flex>
-                          
+                    Sobre o estabelecimento
+                  </Text>
+                  {/*  */}
+                  <FadeIn>
+                    <Flex w="full">
+                      <Flex w="full" direction="column" h="auto">
+                        <Flex
+                          w="full"
+                          direction="row"
+                          marginX="auto"
+                          maxWidth="800px"
+                          py="2"
+                          rounded="md"
+                        >
+                          <chakra.p
+                            color="yolisa.title"
+                            fontSize="0.975rem"
+                            fontWeight="medium"
+                            lineHeight="1.2em"
+                            noOfLines={4}
+                          >
+                            {descSalesman}.
+                          </chakra.p>
                         </Flex>
-                      </FadeIn>
-                      {/*  */}
-                   
-                  </VStack>
-                </Box>
-              </Flex>
-            </Container>
-          </Flex>
+                      </Flex>
+                    </Flex>
+                  </FadeIn>
+                  {/*  */}
+                </VStack>
+              </Box>
+            </Flex>
+          </Container>
         </Flex>
-      </>
-    );
+      </Flex>
+    </>
+  );
 }

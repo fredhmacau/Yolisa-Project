@@ -1,6 +1,7 @@
 import { extendTheme } from "@chakra-ui/react"
 import "@fontsource/inter"
 
+
 const theme = extendTheme({
   colors: {
     yolisa: {

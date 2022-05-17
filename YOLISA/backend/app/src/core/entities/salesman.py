@@ -34,6 +34,7 @@ class EntitySalesman:
             if result:
                 return response(msg={"msg":"create salesman with success"},
                                 status=201)
+          
         except Exception as exc:
             raise exception(detail=f"error:{exc}",status=406)
     
@@ -177,18 +178,15 @@ class EntitySalesman:
         except Exception as exc:
             raise exception(detail=f"error:{exc}",status=404)
     
-    #-------------------------------------------------------------------------
+   
+     #-------------------------------------------------------------------------
     #view posts the salesman
-    async def __get_total(self,id_salesman:int):
-        total=await get_total_of_post(id_salesman)
-        return total 
-    
     async def view_posts(self,id_salesman:int):
         try:
             result=await get_posts_from_salesman(id_salesman)
             if result:
-                total=await self.__get_total(id_salesman)
-                return response(msg={total.total:result},status=200)
+                
+                return result
             else:
                 return response(msg={"msg":"posts not found"},status=404)
         except Exception as exc:
@@ -223,7 +221,7 @@ class EntitySalesman:
     async def receive_email(self,data):
         try:
             result=await receive_email_for_alter_pass(data)
-            if result is not 0:
+            if result !=0:
                 return response(msg={"msg":"email received with success"},status=200)
             else:
                 return response(msg={'msg':"email not found"},status=404)
@@ -241,12 +239,12 @@ class EntitySalesman:
         }
         try:
             result=await alter_password_salesman(values)
-            if result is not 0:
+            if result != 0:
                 return response(msg={"msg":"password update with success"},status=200)
             else:
                 return response(msg={"msg":"salesman not found"},status=404)
         except Exception as exc:
-            raise exception(detail=f"error:{exc}",status=404)
+            raise exception(detail=f"error:{exc}",status=406)
         
     #-------------------------------------------------------------------------
     #add marker position in map
@@ -277,9 +275,11 @@ class EntitySalesman:
     async def update_marker_position(self,id_salesman,data):
         try:
             result=await update_marker_position_salesman(id_salesman,data)
-            if result is 0:
+            if result == 0:
                 return response(msg={"msg":"markers not found"}, status=404)
             else:
-                return response(msg={"smg"},status=200)
+                return response(msg={"msg":"update marker with success"},status=200)
         except Exception as exc:
             raise exception(detail=f"{exc}",status=404)
+
+    

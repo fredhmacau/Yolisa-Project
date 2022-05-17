@@ -10,7 +10,7 @@ class ContactSalesman(Base):
     id = sa.Column(sa.Integer, autoincrement=True, primary_key=True)
     phone_number = sa.Column(sa.Integer, nullable=False)
     province_focus = sa.Column(sa.String(80), nullable=False)
-    city_focus = sa.Column(sa.String(80), nullable=False)
+    city_focus = sa.Column(sa.String(80), nullable=True)
     desc_localization = sa.Column(sa.Text, nullable=True)
     salesman_id = sa.Column(
         sa.Integer,

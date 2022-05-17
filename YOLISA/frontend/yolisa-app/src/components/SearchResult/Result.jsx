@@ -8,23 +8,52 @@ import {
   VStack,
   chakra,
 } from "@chakra-ui/react";
-import example from "../../assets/imgs/banner5.png";
-import {Link as BrowserLink} from "react-router-dom";
 
-export default function Result() {
+import {useNavigate} from "react-router-dom";
+import useHttp from "../../Hooks/useHttp";
+export default function Result({
+  imageProduct,
+  productName,
+  salesmanName,
+  provinceName,
+  phoneNumber,
+  price,
+  idSalesman,
+  descProduct,
+  postId
+}) {
+  const { registerViewsInPost} = useHttp();
+  const navigate = useNavigate();
+  const registerViews = () => {
+    const result = registerViewsInPost(idSalesman);
+    result.then((resp) => {
+      if (resp.status === 200) {
+        navigate(`/info-salesman/${idSalesman}/${postId}`, { replace: true });
+      }
+    });
+  };
   return (
+    
+
+
     <>
       <Flex
-        w="full"
+        w={{ base: "full", md: "540px" }}
         direction={{ base: "column", md: "row" }}
         marginX="auto"
-        maxWidth="640px"
+        
         bg="#f8fafc"
         rounded="md"
         mt="1rem"
       >
         <Box w={{ base: "100%", md: "40%" }} roundedLeft="md" p="3">
-          <Image src={example} size="md" rounded="md" objectFit="cover" />
+          <Image
+            src={imageProduct}
+            w="full"
+            h="10rem"
+            rounded="md"
+            objectFit="cover"
+          />
         </Box>
         <Flex
           w={{ base: "100%", md: "60%" }}
@@ -42,27 +71,31 @@ export default function Result() {
               w="full"
             >
               <Flex direction="column" justifyContent="space-between" w="full">
-                <BrowserLink to="/info-salesman/1" replace={true}>
+                
                   <Text
                     color="yolisa.title"
                     fontSize="1.125rem"
                     fontWeight="medium"
                     lineHeight="1em"
+                    cursor="pointer"
+                    onClick={registerViews}
                   >
-                    Caderno bravo
+                    {productName}
                   </Text>
-                </BrowserLink>
-                <BrowserLink to="/info-salesman/1" replace={true}>
+                
+                
                   <Text
-                    mt="1"
+                    mt="2"
                     color="yolisa.title"
                     fontSize="0.875rem"
                     fontWeight="light"
                     lineHeight="1em"
+                    cursor="pointer"
+                    onClick={registerViews}
                   >
-                    angomaterial
+                    {salesmanName}
                   </Text>
-                </BrowserLink>
+                
               </Flex>
 
               <HStack>
@@ -75,7 +108,7 @@ export default function Result() {
                   fontWeight="500"
                   rounded="sm"
                 >
-                  luanda
+                  {provinceName}
                 </Badge>
                 <Badge
                   px="1"
@@ -84,7 +117,7 @@ export default function Result() {
                   variant="solid"
                   bgColor="#74777d"
                 >
-                  92424333
+                  {phoneNumber}
                 </Badge>
                 <Badge
                   px="1"
@@ -93,7 +126,7 @@ export default function Result() {
                   variant="solid"
                   bgColor="#74777d"
                 >
-                  1000kz
+                  {price}kz
                 </Badge>
               </HStack>
               <chakra.p
@@ -108,9 +141,7 @@ export default function Result() {
                 noOfLines="5"
                 pb="4"
               >
-                Como uma plataforma com foco exclusivo a vendedores de materiais
-                escolares em angola, conheça quantos vendedores estão reunidos
-                aqui na nossa plataforma.
+                {descProduct}
               </chakra.p>
             </VStack>
           </Box>

@@ -1,6 +1,7 @@
 import React from "react";
 const AuthContext=React.createContext({
-    isLogginSalesman:true
+    isLogginSalesman:localStorage.getItem("token")?true:false,
+    
 });
 
 export default AuthContext;

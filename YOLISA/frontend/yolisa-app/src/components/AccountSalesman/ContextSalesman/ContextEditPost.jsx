@@ -7,6 +7,7 @@ import EditPost from "../EditPost";
 
 export default function ContextEditPost(){
     const ctx = useContext(AuthContext);
+    ctx.isLogginSalesman = localStorage.getItem("token") ? true : false;
     return(
         <>
             {

@@ -9,22 +9,62 @@ import {
   Button,
   Input,
   Textarea,
+  Alert,
+  AlertTitle,
+  AlertIcon,
+  AlertDescription,
+} from "@chakra-ui/react";
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  
+ 
+
 } from "@chakra-ui/react";
 import FadeIn from "../Landing/animetions/FadeIn";
 import { useForm } from "react-hook-form";
-import Dropzone from "react-dropzone";
+import { useState} from "react";
 
+import { VisuallyHidden } from "@chakra-ui/react";
+import useHttp from "../../Hooks/useHttp";
 
 export default function CreatePost() {
+
   const {
-    handleSubmit,
+   handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const onSend = (values) => {
-    console.log(values);
+  const {registerPost}=useHttp()
+  const [erros, setErros] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [selectImg,setSelectImg]=useState(null);
+  const selectImageLocal=(e)=>{
+    if (e.target.files[0]){
+      setSelectImg(e)
+    }
+  }
+
+  const onSend =async function (values) {
+      console.log(values,selectImg)
+      await registerPost(values,selectImg)
+      .then((resp)=>{
+        if (resp.status===201){
+          setErros(false)
+          setSuccess(true)
+        }
+      })
+      .catch((errors)=>setErros(true))
+    
   };
+  const onClose=function(){
+    setSuccess(false)
+  }
 
   return (
     <>
@@ -72,6 +112,31 @@ export default function CreatePost() {
                 </chakra.p>
               </FadeIn>
             </VStack>
+            {erros && (
+              <Flex w="full" marginX="auto" mb="4" mt="2" maxW="600px">
+                <Alert
+                  w="full"
+                  display="flex"
+                  rounded="md"
+                  status="error"
+                  variant="solid"
+                  justifyContent="center"
+                >
+                  <Flex
+                    direction="column"
+                    alignItems="center"
+                    justifyContent="center"
+                  >
+                    <AlertIcon />
+                    <AlertTitle>Ocorreu um erro!</AlertTitle>
+                    <AlertDescription>
+                      Ocorreu um erro ao publicar informações, por favor tente
+                      novamente
+                    </AlertDescription>
+                  </Flex>
+                </Alert>
+              </Flex>
+            )}
             <Flex w="full" direction="column" h="auto">
               <Flex
                 w="full"
@@ -106,7 +171,6 @@ export default function CreatePost() {
                         type="text"
                         {...register("productName", {
                           required: "Este campo não pode estar vázio",
-                          
                         })}
                       />
                       <FormErrorMessage>
@@ -124,12 +188,12 @@ export default function CreatePost() {
                       </FormLabel>
                       <Input
                         id="price"
-                        color="yolisa.p"
-                        type="text"
                         {...register("price", {
                           required: "Este campo não pode estar vázio",
-                         
                         })}
+                        color="yolisa.p"
+                        type="text"
+                        required
                       />
                       <FormErrorMessage>
                         {errors.price && errors.price.message}
@@ -155,43 +219,55 @@ export default function CreatePost() {
                       </FormErrorMessage>
                     </FormControl>
                     <FormControl>
-                      <Dropzone
-                        onDrop={(acceptedFiles) => console.log(acceptedFiles)}
-                        accept="image/*"
-                        multiple={false}
-                        maxSize={1000000}
-                        minSize={0}
+                      <Flex
+                        w="full"
+                        h="5rem"
+                        justifyContent="center"
+                        align="center"
+                        bg="#e7eaef"
+                        border="2px dashed #808181"
+                        rounded="md"
+                        mt="1rem"
+                        cursor="pointer"
                       >
-                        {({ getRootProps, getInputProps }) => (
-                          <Flex
-                            w="full"
-                            h="5rem"
-                            justifyContent="center"
-                            align="center"
-                            bg="#e7eaef"
-                            border="2px dashed #808181"
-                            rounded="md"
-                            mt="1rem"
-                          >
-                            <Flex
-                              w="full"
-                              h="full"
-                              align="center"
-                              justifyContent="center"
-                              {...getRootProps()}
+                        <Flex
+                          w="full"
+                          h="full"
+                          align="center"
+                          justifyContent="center"
+                        >
+                          <Flex fontSize="sm" alignItems="baseline">
+                            <chakra.label
+                              htmlFor="fileImg"
+                              cursor="pointer"
+                              rounded="md"
+                              fontSize="md"
+                              pos="relative"
+                              textAlign="center"
                             >
-                              <Input
-                                {...getInputProps()}
-                                {...register("imgProdut", { required: true })}
-                                accept="imagens/*"
-                              />
-                              <p>
-                                Clique ou arraste uma imagem aqui do material
-                              </p>
-                            </Flex>
+                              {selectImg !== null ? (
+                                <span>{selectImg.target.files[0].name}</span>
+                              ) : (
+                                <span>
+                                  Clique aqui para carregar uma imagem do
+                                  produto
+                                </span>
+                              )}
+
+                              <VisuallyHidden>
+                                <input
+                                  id="fileImg"
+                                  name="fileImg"
+                                  onChange={selectImageLocal}
+                                  type="file"
+                                  accept="image/*"
+                                  multiple={false}
+                                />
+                              </VisuallyHidden>
+                            </chakra.label>
                           </Flex>
-                        )}
-                      </Dropzone>
+                        </Flex>
+                      </Flex>
                     </FormControl>
                     <FormControl>
                       <Button
@@ -203,7 +279,7 @@ export default function CreatePost() {
                         w="full"
                         isLoading={isSubmitting}
                       >
-                        Publicar produto
+                          Publicar informações
                       </Button>
                     </FormControl>
                   </FadeIn>
@@ -213,6 +289,31 @@ export default function CreatePost() {
           </Flex>
         </Flex>
       </FadeIn>
+      {success && (
+        <AlertDialog
+          motionPreset="slideInBottom"
+          
+          onClose={onClose}
+          isOpen={success && true}
+          isCentered
+        >
+          <AlertDialogOverlay />
+
+          <AlertDialogContent>
+            <AlertDialogHeader>Publicadas com sucesso.</AlertDialogHeader>
+            
+            <AlertDialogBody>
+              As informações sobre o seu produto foram publicadas com sucesso!
+            </AlertDialogBody>
+            <AlertDialogFooter>
+              
+              <Button onClick={onClose} color="yolisa.50" bg="yolisa.buttonSecondary" ml={3}>
+                OK
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
     </>
   );
 }

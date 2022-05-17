@@ -19,7 +19,7 @@ export default function Hero() {
   const { handleSubmit, register } = useForm();
   const navigate=useNavigate();
   function onSearch(values){
-    console.log(values);
+    
     navigate(`/search=${values.query}`)
   };
 
@@ -60,9 +60,9 @@ export default function Hero() {
                     lineHeight="1.2em"
                     letterSpacing="wide"
                   >
-                    Pesquise o material escolar que necessitas e obtem
-                    informações sobre lojas,estabelecimentos,tabacarias que o
-                    vendem de acordo com o teu bolso e perto de sí.
+                    Pesquise o material escolar que necessitas e encontre
+                    informações sobre o produto e o vendedor  que lhe oferece 
+                    o melhor preço e localização. 
                   </chakra.p>
                   <Box w="full" maxW="600px" marginX="auto">
                     <chakra.form onSubmit={handleSubmit(onSearch)}>

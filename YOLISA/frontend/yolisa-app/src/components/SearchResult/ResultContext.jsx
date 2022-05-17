@@ -5,6 +5,7 @@ import ResultPage from "./ResultPage";
 
 export default function ContextResetPassowrd() {
   const ctx = useContext(AuthContext);
+  ctx.isLogginSalesman = localStorage.getItem("token") ? true : false;
   return (
     <>
       {ctx.isLogginSalesman ? (

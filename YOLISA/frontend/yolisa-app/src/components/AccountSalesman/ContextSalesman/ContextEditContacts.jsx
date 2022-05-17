@@ -5,6 +5,7 @@ import {Navigate} from "react-router-dom"
 
 export default function ContextEditContact(){
     const ctx  = useContext(AuthContext);
+    ctx.isLogginSalesman = localStorage.getItem("token") ? true : false;
     return (
         <>
             {

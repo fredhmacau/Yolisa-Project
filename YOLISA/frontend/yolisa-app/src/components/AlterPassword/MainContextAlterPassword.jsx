@@ -5,6 +5,7 @@ import FormForAlterPassword from "./FormForAlterPassword";
 
 export default function MainContextAlterPassword() {
   const ctx = useContext(AuthContext);
+  ctx.isLogginSalesman = localStorage.getItem("token") ? true : false;
   return (
     <>
       {ctx.isLogginSalesman ? (

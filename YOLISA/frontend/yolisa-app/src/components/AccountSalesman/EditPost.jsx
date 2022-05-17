@@ -7,20 +7,39 @@ import {
   FormLabel,
   Input,
   FormErrorMessage,
-  Button, 
+  Button,
   Textarea,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import FadeIn from "../Landing/animetions/FadeIn";
-
+import { useParams, useNavigate } from "react-router-dom";
+import useHttp from "../../Hooks/useHttp";
+import { useState } from "react";
+import { Alert } from "@chakra-ui/react";
+import { AlertIcon } from "@chakra-ui/react";
+import { AlertTitle } from "@chakra-ui/react";
+import { AlertDescription } from "@chakra-ui/react";
 export default function EditPost() {
+  const [error, setError] = useState(false);
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm();
-  function onEditProfile(values) {
-    console.log(values);
+  const params = useParams();
+  const { updatePosted } = useHttp();
+  const navigate = useNavigate();
+  async function onEditPost(values) {
+    const result = updatePosted(values, params.id);
+    await result
+      .then((resp) => {
+        if (resp.status === 200) {
+          navigate("/acount-salesman",{replace:true});
+        }
+      })
+      .catch(() => {
+        setError(true);
+      });
   }
 
   return (
@@ -59,11 +78,33 @@ export default function EditPost() {
             lineHeight="1.2em"
             letterSpacing="wide"
           >
-              Edite e atualize a sua publicação na YOLISA
+            Edite e atualize a sua publicação na YOLISA
           </chakra.p>
         </FadeIn>
       </VStack>
-     
+      {error && (
+        <Flex w="full" mt="2" maxW="500px">
+          <Alert
+            display="flex"
+            rounded="md"
+            status="error"
+            variant="solid"
+            justifyContent="center"
+          >
+            <Flex
+              direction="column"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <AlertIcon />
+              <AlertTitle>Dados inválidos</AlertTitle>
+              <AlertDescription>
+                Por favor, verifique os dados inseridos e tente novamente.
+              </AlertDescription>
+            </Flex>
+          </Alert>
+        </Flex>
+      )}
       <chakra.form
         maxWidth={{ base: "1000px", md: "500px" }}
         roundedBottomRight="md"
@@ -74,12 +115,12 @@ export default function EditPost() {
         bg="#ffffff"
         p="8"
         mt="2rem"
-        onSubmit={handleSubmit(onEditProfile)}
+        onSubmit={handleSubmit(onEditPost)}
       >
         <FadeIn>
           <FormControl isInvalid={errors.productName}>
             <FormLabel
-              htmlFor="username"
+              htmlFor="productName"
               fontWeight="550"
               color="yolisa.p"
               pl="1"
@@ -116,7 +157,11 @@ export default function EditPost() {
               {errors.price && errors.price.message}
             </FormErrorMessage>
           </FormControl>
-          <FormControl color="yolisa.p" mt="1rem" isInvalid={errors.descProduct}>
+          <FormControl
+            color="yolisa.p"
+            mt="1rem"
+            isInvalid={errors.descProduct}
+          >
             <FormLabel pl="1" htmlFor="desc">
               Descrição do produto:
             </FormLabel>

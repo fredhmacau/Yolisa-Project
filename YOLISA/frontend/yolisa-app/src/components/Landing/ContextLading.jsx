@@ -4,6 +4,7 @@ import AuthContext from "../../context/auth-context"
 import Index from "./Index"
 export default function ContextLading(){
     const ctx=useContext(AuthContext)
+    ctx.isLogginSalesman = localStorage.getItem("token") ? true : false;
     return (
         <>
         {

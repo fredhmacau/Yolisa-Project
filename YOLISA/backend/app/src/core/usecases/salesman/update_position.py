@@ -12,11 +12,10 @@ async def update_marker_position_salesman(id_salesman,data):
         else:
             query_delete="DELETE FROM position_map WHERE salesman_id=:id_salesman"
             values={
-                "lat":data['lat'],
-                "lng":data['lng'],
                 "salesman_id":id_salesman
             }
-            query_insert="""INSERT INTO position_map (lat,lng,salesman_id) values (:lat,:lng,:salesman_id)"""
+            query_insert=f"""INSERT INTO position_map (cordenates, salesman_id) 
+    values (ST_GeomFromText('POINT({data["lat"]} {data["lng"]})'),:salesman_id)"""
             
             async with database as conn:
                 await conn.execute(query=query_delete,values={"id_salesman":id_salesman})
@@ -29,4 +28,5 @@ async def main():
     await task
     await database.disconnect()
 
-
+if __name__=="__main__":
+    asyncio.run(main())

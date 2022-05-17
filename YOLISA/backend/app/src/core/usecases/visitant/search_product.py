@@ -4,16 +4,14 @@ import asyncio
 #search product 
 async def search_product_name(product_name:str):
     #query
-    query=f"""SELECT publish_product.id, publish_product.product_name,
-              price,publish_product.desc_product,
-              publish_product.salesman_id,contact_salesman.province_focus,
-              contact_salesman.city_focus
-              from publish_product INNER
-              JOIN contact_salesman ON
-              publish_product.salesman_id=contact_salesman.salesman_id
-              WHERE contact_salesman.province_focus LIKE "%{product_name}%" 
-              and publish_product.product_name LIKE "%{product_name}%";
-              
+    query=f"""SELECT salesman.id,salesman.business_name,
+    contact_salesman.phone_number,contact_salesman.province_focus,
+    publish_product.id as post_id,publish_product.product_name, publish_product.desc_product,
+    publish_product.price FROM salesman
+    INNER JOIN contact_salesman ON salesman.id=contact_salesman.salesman_id
+    INNER JOIN publish_product ON salesman.id=publish_product.salesman_id
+    WHERE publish_product.product_name LIKE "%{product_name}%" or contact_salesman.province_focus
+    LIKE "%{product_name}%" or publish_product.desc_product LIKE "%{product_name}%"  
           """
     #conn db
     async with database as conn:
